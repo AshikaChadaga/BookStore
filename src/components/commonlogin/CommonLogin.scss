@@ -1,0 +1,35 @@
+.layer1 {
+    background: #F5F5F5 0% 0% no-repeat padding-box;
+    width: 33vw;
+    height: 40vh;
+    border-radius: 21px;
+    padding-top: 2vw;
+    z-index: 1;
+    position: relative;
+    margin-top: 23vh;
+    margin-left: 25vw;
+    
+    .image {
+        width: 14vw;
+        height: 14vw;
+        opacity: 1;
+        background-image: url(../../assets/homepage/home.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        border-radius: 50%;
+        margin-left: 2vw;
+        
+        
+    }
+    .title {
+        text-align: left;
+        font: normal normal medium 18px/24px Roboto;
+        font-weight: 500;
+        letter-spacing: 0px;
+        color: #0a0102;
+        text-transform: uppercase;
+        opacity: 1;
+        margin-left: 3vw;
+        padding-top: 1vw;
+    }
+}
