@@ -9,7 +9,9 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Button from "@mui/material/Button";
 import { useForm, Controller } from 'react-hook-form';
+import UserService from '../../service/UserService';
 
+const userService = new UserService();
 function SignUp() {
 
     //password visibility
@@ -21,6 +23,13 @@ function SignUp() {
     const { handleSubmit, control } = useForm();
     const onSubmit = data => {
         console.log(data);
+        userService.registration("/registration", data)
+        .then(() => {
+            console.log("User Registered Successfully!!");
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
 
@@ -106,7 +115,7 @@ function SignUp() {
                     </div>
                 </Box>
                 <Controller
-                    name="mobile"
+                    name="phone"
                     control={control}
                     defaultValue=""
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
