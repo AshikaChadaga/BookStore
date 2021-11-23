@@ -1,6 +1,6 @@
 .layer1 {
-    background: #F5F5F5 0% 0% no-repeat padding-box;
-    width: 33vw;
+    background: #f5f5f5 0% 0% no-repeat padding-box;
+    max-width: 33vw;
     height: 40vh;
     border-radius: 21px;
     padding-top: 2vw;
@@ -8,18 +8,16 @@
     position: relative;
     margin-top: 23vh;
     margin-left: 25vw;
-    
+
     .image {
-        width: 14vw;
-        height: 14vw;
+        width: 245px;
+        height: 245px;
         opacity: 1;
         background-image: url(../../assets/homepage/home.png);
         background-repeat: no-repeat;
         background-size: 100% 100%;
         border-radius: 50%;
         margin-left: 2vw;
-        
-        
     }
     .title {
         text-align: left;
@@ -31,5 +29,23 @@
         opacity: 1;
         margin-left: 3vw;
         padding-top: 1vw;
+    }
+}
+
+@media only screen and (max-width: 1900px) {
+    .layer1 {
+        margin-left: 20vw;
+    }
+}
+
+@media only screen and (max-width: 1500px) {
+    .layer1 {
+        margin-left: 20vw;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .layer1 {
+        display: none;
     }
 }

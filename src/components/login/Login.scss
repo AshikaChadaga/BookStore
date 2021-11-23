@@ -7,16 +7,15 @@
     border: 1px solid #e4e4e4;
     border-radius: 6px;
     opacity: 1;
-    max-width: 28.477;
     margin-left: 43vw;
     margin-top: -48vh;
-    .login{
+    .login {
         padding: 10%;
         padding-left: 15%;
         padding-right: 15%;
 
-        .form{
-            .last-button{
+        .form {
+            .last-button {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 width: 100%;
@@ -25,6 +24,56 @@
             }
         }
     }
+}
 
+@media only screen and (max-width: 1900px) {
+    .layer2 {
+        margin-left: 40vw;
+        margin-top: -46.5vh;
+        min-width: 24vw;
+    }
+}
 
+@media only screen and (max-width: 1500px) {
+    .layer2 {
+        margin-left: 44vw;
+        margin-top: -46vh;
+        max-width: 25%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .layer2 {
+        margin-left: 46vw;
+        margin-top: -45vh;
+        min-width: 30vw;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .layer2 {
+        margin-left: 25vw;
+        margin-top: 20vh;
+        min-width: 40vw;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .layer2 {
+        min-width: 50vw;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .layer2 {
+        min-width: 60%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .layer2 {
+
+        margin-left: 10vw;
+        margin-right: 15vw;
+        min-width: 80%;
+    }
 }
