@@ -1,7 +1,13 @@
-.homepage{
+.homepage {
     overflow: hidden;
     width: 100vw;
     min-height: 100vh;
     margin-top: 0;
     background-color: #878787;
+}
+
+@media only screen and (max-width: 1000px) {
+    .homepage {
+        background-color: #fff;
+    }
 }

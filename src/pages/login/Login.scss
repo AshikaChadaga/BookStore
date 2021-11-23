@@ -54,13 +54,18 @@
     .layer2 {
         margin-left: 25vw;
         margin-top: 20vh;
-        min-width: 40vw;
+        min-width: 50%;
+        border: none;
+        box-shadow: 0px 5px 15px #fff;
     }
 }
 
 @media only screen and (max-width: 700px) {
     .layer2 {
         min-width: 50vw;
+        .login {
+            padding: 5%;
+        }
     }
 }
 @media only screen and (max-width: 500px) {
@@ -71,7 +76,6 @@
 
 @media only screen and (max-width: 450px) {
     .layer2 {
-
         margin-left: 10vw;
         margin-right: 15vw;
         min-width: 80%;
