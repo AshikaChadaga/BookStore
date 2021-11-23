@@ -11,7 +11,9 @@ import Button from "@mui/material/Button";
 import Divider from '@mui/material/Divider';
 import { useForm, Controller } from 'react-hook-form';
 import './Login.scss'
+import UserService from '../../service/UserService';
 
+const userService = new UserService();
 
 function Login() {
 
@@ -32,6 +34,13 @@ function Login() {
     const { handleSubmit, control } = useForm();
     const onSubmit = data => {
         console.log(data);
+        userService.login("/login", data)
+        .then(() => {
+            console.log("User Logged in Successfully!!");
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     return (
