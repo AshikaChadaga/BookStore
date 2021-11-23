@@ -73,10 +73,14 @@ function Homepage() {
                 </StyledTabs>
                 <Box sx={{ p: 2 }} />
                 {value == 0 ?
-                  <div><Login /></div>
+                  (window.history.pushState('', 'login', '/login'),
+                    <div><Login /></div>)
                   :
-
-                  <div><SignUp /></div>}
+                  (window.history.pushState('', 'signup', '/signup'),
+                    < div >
+                      <SignUp />
+                    </div>)
+                }
               </Box>
             </Box>
           </div>
@@ -84,7 +88,7 @@ function Homepage() {
 
 
       </div>
-    </div>
+    </div >
   )
 }
 
