@@ -1,13 +1,12 @@
 import React from 'react';
 import CommonLogin from '../../components/commonlogin/CommonLogin';
-import Login from '../../components/login/Login';
-import SignUp from '../../components/signup/SignUp';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from '../login/Login';
+import SignUp from '../signup/SignUp';
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import './Homepage.scss'
+import './Homepage.scss';
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -69,13 +68,14 @@ function Homepage() {
                   value={value}
                   onChange={handleChange}
                 >
-                  <StyledTab sx={{marginRight: "4vw"}} label="Login" />
+                  <StyledTab sx={{ marginRight: "4vw" }} label="Login" />
                   <StyledTab label="SignUp" />
                 </StyledTabs>
                 <Box sx={{ p: 2 }} />
                 {value == 0 ?
                   <div><Login /></div>
                   :
+
                   <div><SignUp /></div>}
               </Box>
             </Box>
