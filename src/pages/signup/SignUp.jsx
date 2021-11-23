@@ -10,78 +10,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Button from "@mui/material/Button";
 import { useForm, Controller } from 'react-hook-form';
 
-// const handleMouseDownPassword = (event) => {
-//     event.preventDefault();
-// };
-
 function SignUp() {
-    //password visibility
-    // const [values, setValues] = useState({
-    //     password: "",
-    //     showPassword: false
-    // });
-
-    // const handlePasswordChange = (prop) => (event) => {
-    //     setValues({ ...values, [prop]: event.target.value });
-    //     setPassword(event.target.value);
-    // };
-
-    // const handleClickShowPassword = () => {
-    //     setValues({
-    //         ...values,
-    //         showPassword: !values.showPassword
-    //     });
-    // };
-
-    // const [fullName, setFullName] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
-    // const [mobile, setMobile] = useState("");
-    // const [fullNameError, setFullNameError] = useState(false);
-    // const [emailError, setEmailError] = useState(false);
-    // const [passwordError, setPasswordError] = useState(false);
-    // const [mobileError, setMobileError] = useState(false);
-    // const [isError, setIsError] = useState(false);
-
-    // const isValidated = () => {
-    //     fullName != "" ? setFullNameError(false) : setFullNameError(true);
-    //     (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) ? setEmailError(false) : setEmailError(true);
-    //     password !== "" ? setPasswordError(false) : setPasswordError(true);
-    //     (/^[^[0-9]{10}$/.test(mobile)) ? setMobileError(false) : setMobileError(true);
-    //     setIsError(fullNameError || emailError || passwordError || mobileError);
-    // };
-
-    // const validate = () => {
-    //     isValidated();
-    //     if (isError) {
-    //         console.log("Validation Successfull!!");
-    //         console.log("the is error : " + fullNameError + emailError + passwordError + mobileError);
-
-
-    //         // let data = {
-    //         //     "email": this.state.emailOrPhone,
-    //         //     "password": this.state.password
-    //         // };
-    //         // userService.login("/user/login", data)
-    //         //     .then((res) => {
-    //         //         console.log("User Logged in!");
-    //         //         localStorage.setItem("id", res.data.id);
-    //         //         localStorage.setItem("firstName", res.data.firstName);
-    //         //         localStorage.setItem("lastName", res.data.lastName);
-    //         //         localStorage.setItem("email", res.data.email);
-
-    //         //         Auth.login(() => {
-    //         //             this.props.history.push("/dashboard");
-    //         //         })
-    //         //     })
-    //         //     .catch(error => {
-    //         //         console.error('Error encountered!', error);
-    //         //     });
-    //     }
-    //     else {
-    //         console.log("Not Validated");
-    //     }
-    // }
 
     //password visibility
     const [passwordVisibility, setPasswordVisibility] = useState(false);
