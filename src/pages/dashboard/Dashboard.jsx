@@ -5,27 +5,79 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import StarIcon from "@mui/icons-material/Star";
 import { green } from "@mui/material/colors";
+import Box from '@mui/material/Box';
+import Pagination from "@mui/material/Pagination";
+import { createTheme, IconButton, PaginationItem } from '@mui/material';
+import { ThemeProvider } from '@emotion/react';
+import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import bookImage from "../../assets/dashboard/Image 7.png";
 import UserService from '../../service/UserService';
 import './Dashboard.scss';
 
+const userService = new UserService();
+
+const theme = createTheme({
+  palette: {
+    myColor: {
+      main: "#A03037",
+      contrastText: "#ffffff"
+    }
+  }
+});
+
+const left = () => {
+  return (<IconButton sx={{ border: '2px solid #E2E2E2' }}><ChevronLeftRoundedIcon /></IconButton>)
+}
+
+const right = () => {
+  return (<IconButton sx={{ border: '2px solid #E2E2E2' }}><ChevronRightRoundedIcon /></IconButton>)
+}
+
+// const a = () =>{
+//   return (
+//     <IconButton sx={{border: '1px solid #e2e2e2',borderRadius: '50%'}}><ChevronLeftRoundedIcon /></IconButton>
+//   )
+// }
+// const b = () => {
+//   return (
+// <IconButton sx={{border: '1px solid #e2e2e2',borderRadius: '50%'}}><ChevronRightRoundedIcon /></IconButton>
+//   )
+// }
+// const theme = createTheme({
+//   palette: {
+//       myColor:{
+//           main: "#A03037",
+//           contrastText: 'white'
+//       }
+//   }
+// });
 
 function Dashboard() {
-  const userService = new UserService();
-  const [selection, setSelection] = React.useState("");
+
+  const [selection, setSelection] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const [books, setBooks] = useState([]);
+  const [booksPerPage, setBooksPerPage] = useState(12);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
 
   const handleChange = (event) => {
     setSelection(event.target.value);
   };
+
+
+  const indexOfLastBook = currentPage * booksPerPage;
+  const indexOfFirstBook = indexOfLastBook - booksPerPage;
+  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
 
   const displayBook = () => {
 
@@ -60,7 +112,6 @@ function Dashboard() {
                 onChange={handleChange}
                 displayEmpty
                 size="small"
-              // style={{ borderColor: "#00000029" }}
               >
                 <MenuItem style={{ display: "none" }} disabled value="">
                   Sort by relevance
@@ -74,21 +125,22 @@ function Dashboard() {
         </div>
         <div className="display-cards">
           {
-            books.map((book) => (
+            currentBooks.map((book) => (
               <div className="display-books">
                 <Card
+                  id={book._id}
                   sx={{ maxWidth: 320, maxHeight: 500, background: "#FFFFFF 0% 0% no-repeat padding-box", border: "1px solid #E2E2E2", borderRadius: "3px", opacity: "1" }}>
                   <CardContent style={{ backgroundColor: "#F5F5F5" }}>
                     <img src={bookImage} alt="book Image" />
                   </CardContent>
                   <CardContent >
-                    <Typography style={{ paddingLeft: "0.7vw", fontWeight:"bold" }} variant="body2" color="black" textAlign="left">
+                    <Typography style={{ paddingLeft: "0.7vw", fontWeight: "bold" }} variant="body2" color="black" textAlign="left">
                       {book.bookName}
                     </Typography>
                     <Typography style={{ paddingLeft: "0.7vw", paddingBottom: "1vh" }} variant="body2" color="text.secondary" textAlign="left">
                       by {book.author}
                     </Typography>
-                    <Typography style={{ paddingLeft: "0.7vw", fontWeight:"bold", paddingBottom: "1vh" }} variant="body2" color="black" textAlign="left">
+                    <Typography style={{ paddingLeft: "0.7vw", fontWeight: "bold", paddingBottom: "1vh" }} variant="body2" color="black" textAlign="left">
                       Rs. {book.price}
                     </Typography>
                     <Typography style={{ paddingLeft: "0.7vw" }} variant="body2" color="black">
@@ -123,6 +175,36 @@ function Dashboard() {
             ))
           }
         </div>
+        <ThemeProvider theme={theme}>
+          <Box sx={{ display: 'flex', justifyContent: "center", margin: "25px" }} >
+            <Pagination
+              onChange={ handlePageChange }
+              count={Math.ceil(books.length / 12)}
+              color="myColor"
+              page={currentPage}
+              shape="rounded"
+              renderItem={(item) => (
+                <PaginationItem
+                  components={{ previous: left, next: right }}
+                  {...item}
+                />
+              )}
+            />
+          </Box>
+        </ThemeProvider>
+
+        {/* <ThemeProvider theme={theme}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', margin: '25px' }}>
+            <Pagination count={Math.ceil(books.length / 12)} page={currentPage} shape="rounded" onChange={handlePageChange} color="myColor"
+              renderItem={(item) => (
+                <PaginationItem
+                  components={{ previous: a, next: b }}
+                  {...item}
+                />
+              )}
+            />
+          </Box>
+        </ThemeProvider> */}
       </div>
       <Footer />
     </div>
