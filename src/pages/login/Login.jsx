@@ -12,11 +12,13 @@ import Divider from '@mui/material/Divider';
 import { useForm, Controller } from 'react-hook-form';
 import './Login.scss'
 import UserService from '../../service/UserService';
+import { useNavigate } from 'react-router';
 
 const userService = new UserService();
 
 function Login() {
 
+    let navigate = useNavigate();
     //password visibility
     const [passwordVisibility, setPasswordVisibility] = useState(false);
     const handlePasswordToggle = () => {
@@ -35,12 +37,15 @@ function Login() {
     const onSubmit = data => {
         console.log(data);
         userService.login("/login", data)
-        .then(() => {
-            console.log("User Logged in Successfully!!");
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+            .then((response) => {
+                console.log("User Logged in Successfully!!");
+                localStorage.setItem("id", response.data.result.accessToken);
+                console.log("Access Token: ", localStorage.getItem("id"));
+                navigate("/dashboard");
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     return (
