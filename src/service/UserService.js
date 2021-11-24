@@ -1,6 +1,11 @@
 import AxiosService from "./AxiosService"
 
 const axiosService = new AxiosService();
+let config = {
+    headers: {
+        'x-access-token': localStorage.getItem("id"),
+    }
+};
 let baseURL = "https://new-bookstore-backend.herokuapp.com/bookstore_user";
 
 
@@ -10,6 +15,9 @@ class UserService {
     }
     login(url, data) {
         return axiosService.postMethod(`${baseURL}${url}`, data);
+    }
+    getBooks(url){
+        return axiosService.getMethod(`${baseURL}${url}`, config);
     }
 }
 
