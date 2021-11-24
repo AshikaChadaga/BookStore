@@ -58,11 +58,11 @@ function Login() {
                     defaultValue=""
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <TextField size="small" fullWidth id="outlined-basic" label="Email Id" variant="outlined"
-                            fullWidth style={{ paddingBottom: "10%", fontSize: "1px" }} size="small" label="Email Id" variant="outlined"
+                            fullWidth style={{ fontSize: "1px" }} size="small" label="Email Id" variant="outlined"
                             value={value}
                             onChange={onChange}
                             error={!!error}
-                            helperText={error ? error.message : null}
+                            helperText={error ? error.message : " "}
                             type="email" />
                     )}
                     rules={{ required: 'Enter valid Email' }}
@@ -83,8 +83,7 @@ function Login() {
                                         value={value}
                                         onChange={onChange}
                                         error={!!error}
-                                        helperText={error ? error.message : null}
-                                        style={{ marginBottom: "10%" }}
+                                        helperText={error ? error.message : " "}
                                         InputProps={{
                                             endAdornment: (
                                                 <InputAdornment position='end'>
