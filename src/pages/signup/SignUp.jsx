@@ -48,11 +48,11 @@ function SignUp() {
                             fullWidth
                             label="Full Name"
                             variant="outlined"
-                            fullWidth style={{ paddingBottom: "10%", fontSize: "1px" }}
+                            fullWidth style={{  fontSize: "1px" }}
                             value={value}
                             onChange={onChange}
                             error={!!error}
-                            helperText={error ? error.message : null}
+                            helperText={error ? error.message : " "}
                         />
                     )}
                     rules={{ required: 'Enter Full Name' }}
@@ -68,11 +68,11 @@ function SignUp() {
                             fullWidth
                             label="Email Id"
                             variant="outlined"
-                            fullWidth style={{ paddingBottom: "10%", fontSize: "1px" }}
+                            fullWidth style={{  fontSize: "1px" }}
                             value={value}
                             onChange={onChange}
                             error={!!error}
-                            helperText={error ? error.message : null}
+                            helperText={error ? error.message : " "}
                             type="email" />
                     )}
                     rules={{ required: 'Enter valid Email' }}
@@ -93,8 +93,8 @@ function SignUp() {
                                         value={value}
                                         onChange={onChange}
                                         error={!!error}
-                                        helperText={error ? error.message : null}
-                                        style={{ marginBottom: "10%" }}
+                                        helperText={error ? error.message : " "}
+                                        
                                         InputProps={{
                                             endAdornment: (
                                                 <InputAdornment position='end'>
@@ -126,11 +126,11 @@ function SignUp() {
                             fullWidth
                             label="Mobile Number"
                             variant="outlined"
-                            style={{ paddingBottom: "10%", fontSize: "1px" }}
+                            style={{  fontSize: "1px" }}
                             value={value}
                             onChange={onChange}
                             error={!!error}
-                            helperText={error ? error.message : null}
+                            helperText={error ? error.message : " "}
                         />
                     )}
                     rules={{ required: 'Enter valid Mobile Number', pattern: /^([1-9][0-9])?[7-9][0-9]{9}$/ }}
