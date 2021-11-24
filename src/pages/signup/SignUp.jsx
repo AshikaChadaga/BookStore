@@ -10,10 +10,11 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Button from "@mui/material/Button";
 import { useForm, Controller } from 'react-hook-form';
 import UserService from '../../service/UserService';
+import { useNavigate } from 'react-router';
 
 const userService = new UserService();
 function SignUp() {
-
+    let navigate = useNavigate();
     //password visibility
     const [passwordVisibility, setPasswordVisibility] = useState(false);
     const handlePasswordToggle = () => {
@@ -26,6 +27,7 @@ function SignUp() {
         userService.registration("/registration", data)
         .then(() => {
             console.log("User Registered Successfully!!");
+            navigate("/", {replace:true});
         })
         .catch((error) => {
             console.log(error);
