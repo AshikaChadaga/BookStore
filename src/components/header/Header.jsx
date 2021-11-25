@@ -7,8 +7,22 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
+import { createTheme } from '@mui/material';
+import { ThemeProvider } from '@emotion/react';
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import book from '../../assets/header/education.png';
+import Badge from '@mui/material/Badge';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+
+
+const theme = createTheme({
+  palette: {
+    myColor: {
+      main: "#fff",
+      contrastText: "black"
+    }
+  }
+});
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,12 +65,12 @@ export function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#A03037" }}>
         <Toolbar>
-            <img style={{marginLeft: "10%", marginRight:"3px"}} src={book} alt="book image" />
-          <Typography
+          <img style={{ marginLeft: "10%", marginRight: "3px" }} src={book} alt="book image" />
+          <Typography className="bookstore"
             variant="h6"
             component="div"
             nowrap="true"
-            sx={{ display: {  sm: "block", font: "normal normal normal 20px/26px Roboto" } }}
+            sx={{ display: { sm: "block", font: "normal normal normal 20px/26px Roboto" } }}
           >
             Bookstore
           </Typography>
@@ -69,13 +83,25 @@ export function Header() {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          <Typography style={{ marginLeft: "28%", font: "normal normal normal 15px/13px Roboto"  }}>Cart</Typography>
-          <IconButton>
-            <ShoppingCartOutlinedIcon style={{ marginRight: "11vw", color: "#fff" }} />
-          </IconButton>
+          <Typography style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: "20%" }}>
+            <IconButton>
+              <AccountCircleOutlinedIcon style={{ color: "#fff" }} />
+            </IconButton>
+            {localStorage.getItem("fullName")}
+          </Typography>
+          <Typography style={{ display: "flex", flexDirection: "column", justifyContent: "center", font: "normal normal normal 15px/13px Roboto", marginLeft: "1%" }}>
+            <IconButton>
+              <ThemeProvider theme={theme}>
+                <Badge badgeContent={4} color="myColor">
+                  <ShoppingCartOutlinedIcon style={{ color: "#fff" }} />
+                </Badge>
+              </ThemeProvider>
+            </IconButton>
+            Cart
+          </Typography>
         </Toolbar>
       </AppBar>
-    </Box>
+    </Box >
   );
 }
 
