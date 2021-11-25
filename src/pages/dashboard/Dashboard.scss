@@ -4,9 +4,10 @@
 }
 
 .main-content {
+    overflow-x: hidden;
     padding-left: 11vw;
     padding-right: 11vw;
-    min-height: 81.8vh;
+    min-height: 84.8vh;
     .title {
         margin-top: 3vh;
         @include grid(2);
@@ -29,6 +30,7 @@
         }
         .sort-options {
             text-align: right;
+            margin-right: 0.6vw;
         }
     }
     .display-cards {
@@ -36,6 +38,7 @@
         gap: 2vw;
         margin-bottom: 5vw;
         .dispaly-books {
+            max-width: 235px;
             background: #ffffff 0% 0% no-repeat padding-box;
             border: 1px solid #e2e2e2;
             border-radius: 3px;
@@ -43,11 +46,45 @@
             display: flex;
             text-align: left;
             justify-content: left;
+            .book-image {
+                min-width: 50%;
+            }
         }
         .button {
             @include grid(2);
             gap: 1vw;
             margin-bottom: 30px;
+        }
+    }
+}
+
+@media only screen and (max-width: 1900px) {
+    .main-content {
+        .title {
+            .sort-options {
+                margin-right: 4.5vw;
+            }
+        }
+        .display-cards {
+            @include grid(3);
+        }
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .main-content {
+        .display-cards {
+            @include grid(2);
+        }
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .main-content {
+        .display-cards {
+            @include grid(1);
+            margin-left: 15%;
+            margin-right: 15%;
         }
     }
 }
