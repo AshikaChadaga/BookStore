@@ -18,8 +18,10 @@ import { ThemeProvider } from '@emotion/react';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import bookImage from "../../assets/dashboard/Image 11.png";
+import { useDispatch, useSelector } from 'react-redux';
 import UserService from '../../service/UserService';
 import './Dashboard.scss';
+import { getCartItems, addToBag } from '../../store/actions/cartAction';
 
 const userService = new UserService();
 
@@ -47,7 +49,10 @@ function Dashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [books, setBooks] = useState([]);
   const [booksPerPage, setBooksPerPage] = useState(8);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(state => state);
 
+  console.log(cartItems);
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -56,34 +61,31 @@ function Dashboard() {
     setSelection(event.target.value);
   };
 
-
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
 
-  const addBookToBag = (book) => {
-    console.log(book);
-    userService.addToBag(`/add_cart_item/${book._id}`, "")
-      .then(() => {
-        console.log("Book Added To Cart!");
-        displayBook();
-      })
-      .catch(error => {
-        console.error('Error encountered while Adding Book To Cart!', error);
-      });
+
+  async function getCartBooks() {
+    dispatch(getCartItems());
   }
 
-  const addBookToWishlist = (book) => {
+  const addBookToBag = (book) => {
     console.log(book);
-    userService.addToWishlist(`/add_wish_list/${book._id}`, "")
-      .then(() => {
-        console.log("Book Added To Wishlist!");
-        displayBook();
-      })
-      .catch(error => {
-        console.error('Error encountered while Adding Book To Wishlist!', error);
-      });
+    dispatch(addToBag(book, getCartBooks));
   }
+
+  // const addBookToWishlist = (book) => {
+  //   console.log(book);
+  //   userService.addToWishlist(`/add_wish_list/${book._id}`, "")
+  //     .then(() => {
+  //       console.log("Book Added To Wishlist!");
+  //       displayBook();
+  //     })
+  //     .catch(error => {
+  //       console.error('Error encountered while Adding Book To Wishlist!', error);
+  //     });
+  // }
 
   const displayBook = () => {
 
@@ -98,9 +100,40 @@ function Dashboard() {
       });
   }
 
+  const generateButtons = (book) => {
+    if (cartItems.cartItems.cartItems.includes(book._id)) {
+      return (
+        <div style={{marginLeft:"20px", marginRight:"20px"}}>
+        <Button fullWidth style={{ backgroundColor: "#3371B5", marginBottom: "30px" }} variant="contained">
+          ADDED TO BAG
+        </Button>
+        </div>
+      )
+    }
+    else {
+      return (<div className="button">
+        <Button onClick={() => { addBookToBag(book) }} style={{ backgroundColor: "#A03037", marginLeft: "30px" }} variant="contained">
+          ADD TO BAG
+        </Button>
+        <Button
+          // onClick={() => { addBookToWishlist(book) }}
+          variant="outlined"
+          style={{ color: "black", borderColor: "#878787", marginRight: "30px" }}
+        >
+          WISHLIST
+        </Button>
+      </div>)
+    }
+
+  }
+
+  useEffect(() => {
+    getCartBooks();
+  }, [])
+
   useEffect(() => {
     displayBook();
-  }, []);
+  }, [cartItems]);
 
   return (
     <div>
@@ -168,17 +201,21 @@ function Dashboard() {
 
                     </Typography>
                   </CardContent>
-                  <div className="button">
-                    <Button onClick={() => { addBookToBag(book) }} style={{ backgroundColor: "#A03037", marginLeft: "30px" }} variant="contained">
-                      ADD TO BAG
-                    </Button>
-                    <Button
-                      onClick={() => { addBookToWishlist(book) }}
-                      variant="outlined"
-                      style={{ color: "black", borderColor: "#878787", marginRight: "30px" }}
-                    >
-                      WISHLIST
-                    </Button>
+                  <div >
+                    {generateButtons(book)}
+                    {/* <div className="button">
+                      <Button onClick={() => { addBookToBag(book) }} style={{ backgroundColor: "#A03037", marginLeft: "30px" }} variant="contained">
+                        ADD TO BAG
+                      </Button>
+                      <Button
+                        onClick={() => { addBookToWishlist(book) }}
+                        variant="outlined"
+                        style={{ color: "black", borderColor: "#878787", marginRight: "30px" }}
+                      >
+                        WISHLIST
+                      </Button>
+                    </div> */}
+
                   </div>
                 </Card>
               </div>
