@@ -13,6 +13,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import book from '../../assets/header/education.png';
 import Badge from '@mui/material/Badge';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import {useSelector} from 'react-redux';
 
 
 const theme = createTheme({
@@ -61,6 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export function Header() {
+  const cartItems  = useSelector(state => state);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#A03037" }}>
@@ -92,7 +94,7 @@ export function Header() {
           <Typography style={{ display: "flex", flexDirection: "column", justifyContent: "center", font: "normal normal normal 15px/13px Roboto", marginLeft: "1%" }}>
             <IconButton>
               <ThemeProvider theme={theme}>
-                <Badge badgeContent={4} color="myColor">
+                <Badge badgeContent={cartItems.cartItems.cartItems.length} color="myColor">
                   <ShoppingCartOutlinedIcon style={{ color: "#fff" }} />
                 </Badge>
               </ThemeProvider>
