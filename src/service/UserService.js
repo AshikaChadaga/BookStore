@@ -16,9 +16,14 @@ class UserService {
     login(url, data) {
         return axiosService.postMethod(`${baseURL}${url}`, data);
     }
-    getBooks(url){
+    getBooks(url) {
         return axiosService.getMethod(`${baseURL}${url}`, config);
     }
+    addToBag(url, data) {
+        return axiosService.postMethod(`${baseURL}${url}`, data, config);
+    }
+    addToWishlist(url, data) {
+        return axiosService.postMethod(`${baseURL}${url}`, data, config);
+    }
 }
-
 export default UserService
