@@ -25,8 +25,9 @@ function SignUp() {
     const onSubmit = data => {
         console.log(data);
         userService.registration("/registration", data)
-        .then(() => {
+        .then((res) => {
             console.log("User Registered Successfully!!");
+            localStorage.setItem("fullName", res.data.result.fullName);
             navigate("/", {replace:true});
         })
         .catch((error) => {
