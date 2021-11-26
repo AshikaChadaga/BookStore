@@ -28,5 +28,8 @@ class UserService {
     getCartList(url) {
         return axiosService.getMethod(`${baseURL}${url}`, config);
     }
+    getWishlistItems(url) {
+        return axiosService.getMethod(`${baseURL}${url}`, config);
+    }
 }
 export default UserService
