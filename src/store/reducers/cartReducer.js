@@ -13,11 +13,6 @@ export default function (state = initialState, action) {
             return {
                 cartItems: action.payload
             }
-        case ADD_TO_BAG:
-            return {
-                ...state,
-                cartItems: action.payload
-            }
         default: return state
     }
 
