@@ -1,0 +1,116 @@
+.myCart {
+    padding-left: 11vw;
+    padding-right: 11vw;
+    .first-section {
+        margin-top: 4vw;
+        max-width: 60%;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid lightgrey;
+        border-radius: 1px;
+        padding: 1vw;
+        padding-left: 2vw;
+        .title {
+            text-align: left;
+            font: normal normal medium 18px/22px Roboto;
+            letter-spacing: 0px;
+            color: black;
+            margin-bottom: 2vw;
+        }
+        .cart-items {
+            text-align: left;
+            color: black;
+            min-width: 50%;
+            background-color: "red";
+            .book {
+                display: grid;
+                grid-template-columns: 1fr 8fr;
+                margin-bottom: 2vw;
+                .details {
+                    padding-left: 3vw;
+                    .book-name {
+                        color: #0a0102;
+                    }
+                    .author {
+                        color: #9d9d9d;
+                        opacity: 1;
+                    }
+                    .price {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .place-order {
+            display: flex;
+            align-items: right;
+            justify-content: right;
+        }
+    }
+    .second-section {
+        margin-top: 1vw;
+        max-width: 60%;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid lightgrey;
+        border-radius: 1px;
+        padding: 1vw;
+        padding-left: 2vw;
+        .customer-details {
+            text-align: left;
+            font-weight: lighter;
+            .textfield{
+                max-width: 55%;
+            }
+        }
+        .continue {
+            display: flex;
+            align-items: right;
+            justify-content: right;
+        }
+    }
+    .third-section {
+        margin-top: 1vw;
+        max-width: 60%;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid lightgrey;
+        border-radius: 1px;
+        padding: 1vw;
+        padding-left: 2vw;
+        .order-summary {
+            text-align: left;
+            font-weight: lighter;
+            .textfield{
+                max-width: 55%;
+            }
+        }
+        .cart-items {
+            text-align: left;
+            color: black;
+            min-width: 50%;
+            background-color: "red";
+            .book {
+                display: grid;
+                grid-template-columns: 1fr 8fr;
+                margin-bottom: 2vw;
+                .details {
+                    padding-left: 3vw;
+                    .book-name {
+                        color: #0a0102;
+                        font-weight: bold;
+                    }
+                    .author {
+                        color: #9d9d9d;
+                        font-weight: bold;
+                    }
+                    .price {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .checkout {
+            display: flex;
+            align-items: right;
+            justify-content: right;
+        }
+    }
+}
