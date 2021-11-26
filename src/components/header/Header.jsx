@@ -14,6 +14,7 @@ import book from '../../assets/header/education.png';
 import Badge from '@mui/material/Badge';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import {useSelector} from 'react-redux';
+import { useNavigate } from 'react-router';
 
 
 const theme = createTheme({
@@ -62,7 +63,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export function Header() {
-  const cartItems  = useSelector(state => state);
+  let navigate = useNavigate();
+  const cartItems  = useSelector(state => state.cartItems);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#A03037" }}>
@@ -92,9 +94,9 @@ export function Header() {
             {localStorage.getItem("fullName")}
           </Typography>
           <Typography style={{ display: "flex", flexDirection: "column", justifyContent: "center", font: "normal normal normal 15px/13px Roboto", marginLeft: "1%" }}>
-            <IconButton>
+            <IconButton onClick={() => navigate('/cart', { replace: true })}>
               <ThemeProvider theme={theme}>
-                <Badge badgeContent={cartItems.cartItems.cartItems.length} color="myColor">
+                <Badge badgeContent={cartItems.cartItems.length} color="myColor">
                   <ShoppingCartOutlinedIcon style={{ color: "#fff" }} />
                 </Badge>
               </ThemeProvider>
