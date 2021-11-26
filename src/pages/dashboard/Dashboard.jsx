@@ -21,7 +21,7 @@ import bookImage from "../../assets/dashboard/Image 11.png";
 import { useDispatch, useSelector } from 'react-redux';
 import UserService from '../../service/UserService';
 import './Dashboard.scss';
-import { getCartItems, addToBag } from '../../store/actions/cartAction';
+import { getCartItems, getWishlistItems } from '../../store/actions/cartAction';
 
 const userService = new UserService();
 
@@ -50,9 +50,9 @@ function Dashboard() {
   const [books, setBooks] = useState([]);
   const [booksPerPage, setBooksPerPage] = useState(8);
   const dispatch = useDispatch();
-  const cartItems = useSelector(state => state);
+  const cartItems = useSelector(state => state.cartItems);
+  const wishlistItems = useSelector(state => state.wishlistItems);
 
-  console.log(cartItems);
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -65,27 +65,41 @@ function Dashboard() {
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
 
-
   async function getCartBooks() {
-    dispatch(getCartItems());
+    dispatch(getCartItems("dashboard"));
   }
 
   const addBookToBag = (book) => {
     console.log(book);
-    dispatch(addToBag(book, getCartBooks));
+    userService.addToBag(`/add_cart_item/${book._id}`, {})
+      .then(() => {
+        console.log("Book Added To Cart!");
+        getCartBooks();
+        // console.log("Cart: ", cartItems);
+        displayBook();
+      })
+      .catch(error => {
+        console.error('Error encountered while Adding Book To Wishlist!', error);
+      });
   }
 
-  // const addBookToWishlist = (book) => {
-  //   console.log(book);
-  //   userService.addToWishlist(`/add_wish_list/${book._id}`, "")
-  //     .then(() => {
-  //       console.log("Book Added To Wishlist!");
-  //       displayBook();
-  //     })
-  //     .catch(error => {
-  //       console.error('Error encountered while Adding Book To Wishlist!', error);
-  //     });
-  // }
+  async function getWishListBooks() {
+    dispatch(getWishlistItems());
+  }
+
+  const addBookToWishlist = (book) => {
+    console.log(book);
+    userService.addToWishlist(`/add_wish_list/${book._id}`, "")
+      .then(() => {
+        console.log("Book Added To Wishlist!");
+        getWishListBooks();
+        console.log("Wishlist: ", wishlistItems);
+        displayBook();
+      })
+      .catch(error => {
+        console.error('Error encountered while Adding Book To Wishlist!', error);
+      });
+  }
 
   const displayBook = () => {
 
@@ -101,12 +115,26 @@ function Dashboard() {
   }
 
   const generateButtons = (book) => {
-    if (cartItems.cartItems.cartItems.includes(book._id)) {
+    if (cartItems.cartItems.includes(book._id)) {
       return (
-        <div style={{marginLeft:"20px", marginRight:"20px"}}>
-        <Button fullWidth style={{ backgroundColor: "#3371B5", marginBottom: "30px" }} variant="contained">
-          ADDED TO BAG
-        </Button>
+        <div style={{ marginLeft: "30px", marginRight: "30px" }}>
+          <Button fullWidth style={{ backgroundColor: "#3371B5", marginBottom: "30px" }} variant="contained">
+            ADDED TO BAG
+          </Button>
+        </div>
+      )
+    }
+
+    else if (wishlistItems.wishlistItems.includes(book._id)) {
+      return (
+        <div style={{ marginLeft: "30px", marginRight: "30px" }}>
+          <Button
+            fullWidth
+            variant="outlined"
+            style={{ color: "black", borderColor: "#878787", marginRight: "30px", marginBottom: "30px" }}
+          >
+            ADDED TO WISHLIST
+          </Button>
         </div>
       )
     }
@@ -116,7 +144,7 @@ function Dashboard() {
           ADD TO BAG
         </Button>
         <Button
-          // onClick={() => { addBookToWishlist(book) }}
+          onClick={() => { addBookToWishlist(book) }}
           variant="outlined"
           style={{ color: "black", borderColor: "#878787", marginRight: "30px" }}
         >
@@ -128,12 +156,13 @@ function Dashboard() {
   }
 
   useEffect(() => {
-    getCartBooks();
+    getCartBooks("dashboard");
+    getWishListBooks();
   }, [])
 
   useEffect(() => {
     displayBook();
-  }, [cartItems]);
+  }, [cartItems, wishlistItems]);
 
   return (
     <div>
@@ -203,18 +232,6 @@ function Dashboard() {
                   </CardContent>
                   <div >
                     {generateButtons(book)}
-                    {/* <div className="button">
-                      <Button onClick={() => { addBookToBag(book) }} style={{ backgroundColor: "#A03037", marginLeft: "30px" }} variant="contained">
-                        ADD TO BAG
-                      </Button>
-                      <Button
-                        onClick={() => { addBookToWishlist(book) }}
-                        variant="outlined"
-                        style={{ color: "black", borderColor: "#878787", marginRight: "30px" }}
-                      >
-                        WISHLIST
-                      </Button>
-                    </div> */}
 
                   </div>
                 </Card>
