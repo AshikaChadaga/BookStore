@@ -49,7 +49,6 @@ function Dashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [books, setBooks] = useState([]);
   const [booksPerPage, setBooksPerPage] = useState(8);
-  // const [bookIdList, setBookIdList] = useState([]);
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cartItems);
   const wishlistItems = useSelector(state => state.wishlistItems);
@@ -67,12 +66,10 @@ function Dashboard() {
   const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
 
   async function getCartBooks() {
-    dispatch(getCartItems("dashboard"));
+    dispatch(getCartItems());
   }
 
   const addBookToBag = (book) => {
-    // setBookIdList([...bookIdList, book._id]);
-    // console.log(book);
     userService.addToBag(`/add_cart_item/${book._id}`, {})
       .then(() => {
         console.log("Book Added To Cart!");
@@ -159,50 +156,6 @@ function Dashboard() {
         </Button>
       </div>)
     }
-
-    // console.log(cartItems.cartItems);
-    // cartItems.cartItems.map((product) => {
-    //   if (product.product_id._id === book._id) {
-    //     console.log("bookid: ", book._id);
-    //     console.log("productid_id: ", product.product_id._id);
-    //     return (
-    //       <div style={{ marginLeft: "30px", marginRight: "30px" }}>
-    //         <Button fullWidth style={{ backgroundColor: "#3371B5", marginBottom: "30px" }} variant="contained">
-    //           ADDED TO BAG
-    //         </Button>
-    //       </div>
-    //     )
-    //   }
-    // })
-
-    // if (wishlistItems.wishlistItems.includes(book._id)) {
-    //   return (
-    //     <div style={{ marginLeft: "30px", marginRight: "30px" }}>
-    //       <Button
-    //         fullWidth
-    //         variant="outlined"
-    //         style={{ color: "black", borderColor: "#878787", marginRight: "30px", marginBottom: "30px" }}
-    //       >
-    //         ADDED TO WISHLIST
-    //       </Button>
-    //     </div>
-    //   )
-    // }
-    // else {
-    //   return (<div className="button">
-    //     <Button onClick={() => { addBookToBag(book) }} style={{ backgroundColor: "#A03037", marginLeft: "30px" }} variant="contained">
-    //       ADD TO BAG
-    //     </Button>
-    //     <Button
-    //       onClick={() => { addBookToWishlist(book) }}
-    //       variant="outlined"
-    //       style={{ color: "black", borderColor: "#878787", marginRight: "30px" }}
-    //     >
-    //       WISHLIST
-    //     </Button>
-    //   </div>)
-    // }
-
   }
 
 
