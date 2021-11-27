@@ -12,7 +12,7 @@ import { ThemeProvider } from '@emotion/react';
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import book from '../../assets/header/education.png';
 import Badge from '@mui/material/Badge';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
@@ -31,10 +31,14 @@ const Search = styled("div")(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: "#fff",
   marginRight: theme.spacing(2),
-  // marginLeft: theme.spacing(30),
-  minWidth: "37%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
+  marginLeft: theme.spacing(2),
+  minWidth: "35%",
+  [theme.breakpoints.down("sm")]: {
+    marginLeft: theme.spacing(2),
+    // width: "auto"
+  },
+  [theme.breakpoints.down("md")]: {
+    marginLeft: theme.spacing(2),
     // width: "auto"
   }
 }));
@@ -67,16 +71,16 @@ export function Header() {
   const cartItems = useSelector(state => state.cartItems);
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ backgroundColor: "#A03037" }}>
+      <AppBar position="static" style={{ backgroundColor: "#A03037", overflowX:"hidden" }}>
         <Toolbar>
-          <img onClick={()=>navigate("/dashboard")} style={{ marginLeft: "10%", marginRight: "3px", cursor:"pointer" }} src={book} alt="book image" />
+          <img onClick={() => navigate("/dashboard")} style={{ marginLeft: "10%", marginRight: "3px", cursor: "pointer" }} src={book} alt="book image" />
           <Typography
-            onClick={()=>navigate("/dashboard")}
+            onClick={() => navigate("/dashboard")}
             className="bookstore"
             variant="h6"
             component="div"
-            nowrap="true"
-            sx={{ display: { sm: "block", font: "normal normal normal 20px/26px Roboto" }, cursor:"pointer" }}
+            nowrap="false"
+            sx={{ display: { xs:'none', sm: "block", font: "normal normal normal 20px/26px Roboto" }, cursor: "pointer" }}
           >
             Bookstore
           </Typography>
@@ -89,13 +93,18 @@ export function Header() {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-          <Typography style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: "20%" }}>
+
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ marginRight: "1%" }}>
             <IconButton >
-              <AccountCircleOutlinedIcon style={{ color: "#fff" }} />
+              <PersonOutlineOutlinedIcon style={{ color: "#fff" }} />
             </IconButton>
-            {localStorage.getItem("fullName")}
-          </Typography>
-          <Typography style={{ display: "flex", flexDirection: "column", justifyContent: "center", font: "normal normal normal 15px/13px Roboto", marginLeft: "1%" }}>
+            <Typography>
+              {localStorage.getItem("fullName")}
+            </Typography>
+          </Box>
+
+          <Box sx={{ marginRight: "15%" }}>
             <IconButton onClick={() => navigate('/cart', { replace: true })}>
               <ThemeProvider theme={theme}>
                 <Badge badgeContent={cartItems.cartItems.length} color="myColor">
@@ -103,8 +112,11 @@ export function Header() {
                 </Badge>
               </ThemeProvider>
             </IconButton>
-            Cart
-          </Typography>
+            <Typography>
+              Cart
+            </Typography>
+          </Box>
+
         </Toolbar>
       </AppBar>
     </Box >
