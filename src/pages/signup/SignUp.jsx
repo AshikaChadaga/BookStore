@@ -28,7 +28,6 @@ function SignUp() {
         .then((res) => {
             console.log("User Registered Successfully!!");
             localStorage.setItem("fullName", res.data.result.fullName);
-            navigate("/", {replace:true});
         })
         .catch((error) => {
             console.log(error);
@@ -134,7 +133,7 @@ function SignUp() {
                             helperText={error ? error.message : " "}
                         />
                     )}
-                    rules={{ required: 'Enter valid Mobile Number', pattern: /^([1-9][0-9])?[7-9][0-9]{9}$/ }}
+                    rules={{ required: 'Enter valid Mobile Number', pattern: /^[7-9][0-9]{9}$/ }}
                 />
                 <Button type="submit" fullWidth variant="contained" style={{ marginTop: "7px", textTransform: "none", background: "#A03037 0% 0% no-repeat padding-box", opacity: 1 }}>
                     Sign Up
