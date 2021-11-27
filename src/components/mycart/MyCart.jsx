@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCartItems, getWishlistItems } from '../../store/actions/cartAction';
+import { getCartItems } from '../../store/actions/cartAction';
 import bookImage from "../../assets/dashboard/Image 11.png";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
@@ -16,6 +16,8 @@ function MyCart() {
     const cartItems = useSelector(state => state.cartItems);
     const [displayPlaceOrder, setDisplayPlaceOrder] = useState("normal");
     const [displayContinue, setDisplayContinue] = useState("normal");
+    const [showPlaceOrder, setShowPlaceOrder] = useState(true);
+    const [showContinue, setShowContinue] = useState(true);
     const [checked, setChecked] = React.useState(false);
     const [checkedContinue, setCheckedContinue] = React.useState(false);
     const dispatch = useDispatch();
@@ -26,14 +28,13 @@ function MyCart() {
         dispatch(getCartItems("cart"));
     }
 
-
     const handleChange = () => {
         setChecked(true);
-        setDisplayPlaceOrder("none");
+        setShowPlaceOrder(prev => !prev)
     };
     const handleChangeContinue = () => {
         setCheckedContinue(true);
-        setDisplayContinue("none");
+        setShowContinue(prev => !prev)
     };
 
     const generateCart = () => {
@@ -50,17 +51,18 @@ function MyCart() {
                             <p className="author">by {product.product_id.author}</p>
                             <p className="price">Rs. {product.product_id.price}</p>
                             <Stack direction="row" spacing={1}>
+
                                 <Avatar
                                     alt="Remy Sharp"
                                     sx={{
                                         width: 28,
                                         height: 28,
                                         color: "black",
+                                        fontSize: "30px",
                                         background: "#FAFAFA 0% 0% no-repeat padding-box",
                                         border: "1px solid #DBDBDB"
                                     }}
-                                >+</Avatar>
-
+                                >-</Avatar>
                                 <Avatar
                                     sx={{
                                         width: 50,
@@ -79,11 +81,10 @@ function MyCart() {
                                         width: 28,
                                         height: 28,
                                         color: "black",
-                                        fontSize: "30px",
                                         background: "#FAFAFA 0% 0% no-repeat padding-box",
                                         border: "1px solid #DBDBDB"
                                     }}
-                                >-</Avatar>
+                                >+</Avatar>
 
                                 <Button style={{ textTransform: "none", color: "black", marginLeft: "30px" }} variant="text">Remove</Button>
 
@@ -162,19 +163,19 @@ function MyCart() {
                 </div>
 
                 {generateCart()}
-                <div className="place-order" style={{ display: { displayPlaceOrder } }}>
+                {showPlaceOrder && <div className="place-order" style={{ display: { displayPlaceOrder } }}>
                     <Button variant="contained" checked={checked}
                         onClick={handleChange}>place order</Button>
-                </div>
+                </div>}
             </div>
 
             <div className="second-section">
                 <Collapse in={checked} collapsedSize={40}>
                     {secondSection}
-                    <div className="continue" >
+                    {showContinue && <div className="continue" >
                         <Button variant="contained" style={{ display: { displayContinue } }} checked={checkedContinue}
                             onClick={handleChangeContinue}>Continue</Button>
-                    </div>
+                    </div>}
                 </Collapse>
             </div>
 
