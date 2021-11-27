@@ -1,5 +1,4 @@
 import { GET_CART_ITEMS } from '../types';
-import { ADD_TO_BAG } from '../types';
 
 const initialState = {
     cartItems: []
