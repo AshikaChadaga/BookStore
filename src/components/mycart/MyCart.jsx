@@ -19,20 +19,24 @@ function MyCart() {
     const [displayContinue, setDisplayContinue] = useState("normal");
     const [showPlaceOrder, setShowPlaceOrder] = useState(true);
     const [showContinue, setShowContinue] = useState(true);
-    const [checked, setChecked] = React.useState(false);
-    const [checkedContinue, setCheckedContinue] = React.useState(false);
+    const [checked, setChecked] = useState(false);
+    const [checkedContinue, setCheckedContinue] = useState(false);
+    const [disabled, setDisabled] = useState(false);
     const dispatch = useDispatch();
+
     const { handleSubmit, control } = useForm();
+
     const onSubmit = data => {
         console.log(data);
         setCheckedContinue(true);
-        setShowContinue(prev => !prev)
+        setDisabled(true);
+        setShowContinue(prev => !prev);
     }
 
     console.log("Cart Items: ", cartItems);
 
     async function getCartBooks() {
-        dispatch(getCartItems("cart"));
+        dispatch(getCartItems());
     }
 
     const handleChange = () => {
@@ -55,17 +59,7 @@ function MyCart() {
                             <p className="price">Rs. {product.product_id.price}</p>
                             <Stack direction="row" spacing={1}>
 
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    sx={{
-                                        width: 28,
-                                        height: 28,
-                                        color: "black",
-                                        fontSize: "30px",
-                                        background: "#FAFAFA 0% 0% no-repeat padding-box",
-                                        border: "1px solid #DBDBDB"
-                                    }}
-                                >-</Avatar>
+                                <button disabled={disabled} class="plus-icon" >-</button>
                                 <Avatar
                                     sx={{
                                         width: 50,
@@ -77,17 +71,7 @@ function MyCart() {
                                     }}
                                     variant="square"
                                 >1</Avatar>
-
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    sx={{
-                                        width: 28,
-                                        height: 28,
-                                        color: "black",
-                                        background: "#FAFAFA 0% 0% no-repeat padding-box",
-                                        border: "1px solid #DBDBDB"
-                                    }}
-                                >+</Avatar>
+                                <button disabled={disabled} class="plus-icon" id="plus" >+</button>
 
                                 <Button style={{ textTransform: "none", color: "black", marginLeft: "30px" }} variant="text">Remove</Button>
 
@@ -111,6 +95,7 @@ function MyCart() {
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <TextField id="outlined-basic" label="Name" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }}
                             value={value}
+                            disabled={disabled}
                             onChange={onChange}
                             error={!!error}
                             helperText={error ? error.message : " "} />
@@ -124,6 +109,7 @@ function MyCart() {
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <TextField id="outlined-basic" label="Phone number" variant="outlined" style={{ marginBottom: "1vw" }}
                             value={value}
+                            disabled={disabled}
                             onChange={onChange}
                             error={!!error}
                             helperText={error ? error.message : " "} />
@@ -137,6 +123,7 @@ function MyCart() {
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <TextField id="outlined-basic" label="Pincode" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }}
                             value={value}
+                            disabled={disabled}
                             onChange={onChange}
                             error={!!error}
                             helperText={error ? error.message : " "} />
@@ -150,6 +137,7 @@ function MyCart() {
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <TextField id="outlined-basic" label="Locality" variant="outlined" style={{ marginBottom: "1vw" }}
                             value={value}
+                            disabled={disabled}
                             onChange={onChange}
                             error={!!error}
                             helperText={error ? error.message : " "} />
@@ -167,6 +155,7 @@ function MyCart() {
                             label="Address"
                             multiline
                             rows={3}
+                            disabled={disabled}
                             style={{ marginBottom: "1vw" }}
                             value={value}
                             onChange={onChange}
@@ -182,6 +171,7 @@ function MyCart() {
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <TextField id="outlined-basic" label="City/Town" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }}
                             value={value}
+                            disabled={disabled}
                             onChange={onChange}
                             error={!!error}
                             helperText={error ? error.message : " "} />
@@ -196,6 +186,7 @@ function MyCart() {
                         <TextField id="outlined-basic" label="Landmark" variant="outlined"
                             value={value}
                             onChange={onChange}
+                            disabled={disabled}
                             error={!!error}
                             helperText={error ? error.message : " "} />
                     )}
@@ -204,41 +195,39 @@ function MyCart() {
             </div>
             <div>
                 <h4>Type</h4>
-                {/* <Controller
-                    name="landmark"
+                <Controller
+                    name="type"
                     control={control}
-                    defaultValue=""
-                    render={({ field: { onChange, value }, fieldState: { error } }) => ( */}
-                        <RadioGroup row aria-label="type" name="row-radio-buttons-group" style={{ color: "grey" }}>
-                            <FormControlLabel
-                                // onChange={onChange}
-                                // error={!!error}
-                                // helperText={error ? error.message : " "}
+                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <RadioGroup
+                            fontSize="small"
+                            onChange={onChange}
+                            value={value}
+                            error={!!error}
+                            helperText={error ? error.message : " "} 
+                            row aria-label="type" 
+                            style={{ color: "grey" }}>
+                            <FormControlLabel 
                                 value="home"
+                                disabled={disabled}
                                 control={<Radio />}
                                 label="Home"
                             />
                             <FormControlLabel
-                                // onChange={onChange}
-                                // error={!!error}
-                                // helperText={error ? error.message : " "}
                                 value="work"
+                                disabled={disabled}
                                 control={<Radio />}
                                 label="Work" />
                             <FormControlLabel
-                                // onChange={onChange}
-                                // error={!!error}
-                                // helperText={error ? error.message : " "}
                                 value="other"
+                                disabled={disabled}
                                 control={<Radio />}
                                 label="Other" />
                         </RadioGroup>
-                {/* //     )}
-                //     rules={{ required: 'Choose Type' }}
-                // /> */}
+                    )}
+                    rules={{ required: "Choose Type" }}
+                />
             </div>
-
-
         </div>
     );
 
