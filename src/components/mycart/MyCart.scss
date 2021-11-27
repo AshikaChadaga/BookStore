@@ -27,6 +27,26 @@
                 margin-bottom: 2vw;
                 .details {
                     padding-left: 3vw;
+                    .plus-icon{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 28px;
+                        height: 28px;
+                        border-radius: 100%;
+                        border: 1px solid #DBDBDB;
+                        font-size: 30px;
+                        color: black;
+                        cursor: pointer;
+                        background-color: #FAFAFA;
+                    }
+                    .plus-icon:disabled{
+                        opacity: 0.5;
+                        // cursor: normal;
+                    }
+                    #plus{
+                        font-size: 20px;
+                    }
                     .book-name {
                         color: #0a0102;
                     }
@@ -57,7 +77,7 @@
         .customer-details {
             text-align: left;
             font-weight: lighter;
-            .textfield{
+            .textfield {
                 max-width: 55%;
             }
         }
@@ -78,7 +98,7 @@
         .order-summary {
             text-align: left;
             font-weight: lighter;
-            .textfield{
+            .textfield {
                 max-width: 55%;
             }
         }
