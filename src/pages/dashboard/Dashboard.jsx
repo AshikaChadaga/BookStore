@@ -49,6 +49,7 @@ function Dashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [books, setBooks] = useState([]);
   const [booksPerPage, setBooksPerPage] = useState(8);
+  // const [bookIdList, setBookIdList] = useState([]);
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cartItems);
   const wishlistItems = useSelector(state => state.wishlistItems);
@@ -70,12 +71,12 @@ function Dashboard() {
   }
 
   const addBookToBag = (book) => {
-    console.log(book);
+    // setBookIdList([...bookIdList, book._id]);
+    // console.log(book);
     userService.addToBag(`/add_cart_item/${book._id}`, {})
       .then(() => {
         console.log("Book Added To Cart!");
         getCartBooks();
-        // console.log("Cart: ", cartItems);
         displayBook();
       })
       .catch(error => {
@@ -105,7 +106,7 @@ function Dashboard() {
 
     userService.getBooks("/get/book")
       .then((res) => {
-        console.log(res.data.result);
+        // console.log(res.data.result);
         setBooks(res.data.result);
         console.log("Books Displayed!");
       })
@@ -115,7 +116,12 @@ function Dashboard() {
   }
 
   const generateButtons = (book) => {
-    if (cartItems.cartItems.includes(book._id)) {
+    let bookIdList = [];
+    cartItems.cartItems.map((product) => {
+      bookIdList.push(product.product_id._id);
+    })
+
+    if (bookIdList.includes(book._id)) {
       return (
         <div style={{ marginLeft: "30px", marginRight: "30px" }}>
           <Button fullWidth style={{ backgroundColor: "#3371B5", marginBottom: "30px" }} variant="contained">
@@ -138,6 +144,7 @@ function Dashboard() {
         </div>
       )
     }
+
     else {
       return (<div className="button">
         <Button onClick={() => { addBookToBag(book) }} style={{ backgroundColor: "#A03037", marginLeft: "30px" }} variant="contained">
@@ -153,7 +160,52 @@ function Dashboard() {
       </div>)
     }
 
+    // console.log(cartItems.cartItems);
+    // cartItems.cartItems.map((product) => {
+    //   if (product.product_id._id === book._id) {
+    //     console.log("bookid: ", book._id);
+    //     console.log("productid_id: ", product.product_id._id);
+    //     return (
+    //       <div style={{ marginLeft: "30px", marginRight: "30px" }}>
+    //         <Button fullWidth style={{ backgroundColor: "#3371B5", marginBottom: "30px" }} variant="contained">
+    //           ADDED TO BAG
+    //         </Button>
+    //       </div>
+    //     )
+    //   }
+    // })
+
+    // if (wishlistItems.wishlistItems.includes(book._id)) {
+    //   return (
+    //     <div style={{ marginLeft: "30px", marginRight: "30px" }}>
+    //       <Button
+    //         fullWidth
+    //         variant="outlined"
+    //         style={{ color: "black", borderColor: "#878787", marginRight: "30px", marginBottom: "30px" }}
+    //       >
+    //         ADDED TO WISHLIST
+    //       </Button>
+    //     </div>
+    //   )
+    // }
+    // else {
+    //   return (<div className="button">
+    //     <Button onClick={() => { addBookToBag(book) }} style={{ backgroundColor: "#A03037", marginLeft: "30px" }} variant="contained">
+    //       ADD TO BAG
+    //     </Button>
+    //     <Button
+    //       onClick={() => { addBookToWishlist(book) }}
+    //       variant="outlined"
+    //       style={{ color: "black", borderColor: "#878787", marginRight: "30px" }}
+    //     >
+    //       WISHLIST
+    //     </Button>
+    //   </div>)
+    // }
+
   }
+
+
 
   useEffect(() => {
     getCartBooks();
