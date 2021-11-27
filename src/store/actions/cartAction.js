@@ -7,24 +7,11 @@ export const getCartItems = (mode) => async dispatch => {
 
     try {
         const res = await userService.getCartList("/get_cart_items");
-        let bookIdList = [];
-        res.data.result.map(book => {
-            bookIdList.push(book.product_id._id)
+        
+        dispatch({
+            type: GET_CART_ITEMS,
+            payload: res.data.result
         })
-        switch (mode) {
-            case "dashboard":
-                dispatch({
-                    type: GET_CART_ITEMS,
-                    payload: bookIdList
-                })
-                break;
-            case "cart":
-                dispatch({
-                    type: GET_CART_ITEMS,
-                    payload: res.data.result
-                })
-                break;
-        }
     }
     catch (e) {
         dispatch({
