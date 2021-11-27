@@ -10,6 +10,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Button from "@mui/material/Button";
 import Divider from '@mui/material/Divider';
 import { useForm, Controller } from 'react-hook-form';
+import Auth from '../../components/Authentication/Authentication'
 import './Login.scss'
 import UserService from '../../service/UserService';
 import { useNavigate } from 'react-router';
@@ -41,7 +42,10 @@ function Login() {
                 console.log("User Logged in Successfully!!");
                 localStorage.setItem("id", response.data.result.accessToken);
                 console.log("Access Token: ", localStorage.getItem("id"));
-                navigate("/dashboard");
+                Auth.login(() => {
+                    navigate("/dashboard");
+                })
+                
             })
             .catch((error) => {
                 console.log(error);
