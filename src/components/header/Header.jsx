@@ -13,7 +13,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import book from '../../assets/header/education.png';
 import Badge from '@mui/material/Badge';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 
@@ -64,17 +64,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export function Header() {
   let navigate = useNavigate();
-  const cartItems  = useSelector(state => state.cartItems);
+  const cartItems = useSelector(state => state.cartItems);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#A03037" }}>
         <Toolbar>
-          <img style={{ marginLeft: "10%", marginRight: "3px" }} src={book} alt="book image" />
-          <Typography className="bookstore"
+          <img onClick={()=>navigate("/dashboard")} style={{ marginLeft: "10%", marginRight: "3px", cursor:"pointer" }} src={book} alt="book image" />
+          <Typography
+            onClick={()=>navigate("/dashboard")}
+            className="bookstore"
             variant="h6"
             component="div"
             nowrap="true"
-            sx={{ display: { sm: "block", font: "normal normal normal 20px/26px Roboto" } }}
+            sx={{ display: { sm: "block", font: "normal normal normal 20px/26px Roboto" }, cursor:"pointer" }}
           >
             Bookstore
           </Typography>
@@ -88,7 +90,7 @@ export function Header() {
             />
           </Search>
           <Typography style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: "20%" }}>
-            <IconButton>
+            <IconButton >
               <AccountCircleOutlinedIcon style={{ color: "#fff" }} />
             </IconButton>
             {localStorage.getItem("fullName")}
