@@ -3,11 +3,10 @@ import UserService from '../../service/UserService';
 
 const userService = new UserService();
 
-export const getCartItems = (mode) => async dispatch => {
+export const getCartItems = () => async dispatch => {
 
     try {
         const res = await userService.getCartList("/get_cart_items");
-        
         dispatch({
             type: GET_CART_ITEMS,
             payload: res.data.result
