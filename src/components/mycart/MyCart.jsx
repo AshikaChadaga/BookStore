@@ -10,6 +10,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import TextField from '@mui/material/TextField';
 import Collapse from "@mui/material/Collapse";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { useForm, Controller } from 'react-hook-form';
 import './MyCart.scss'
 
 function MyCart() {
@@ -21,6 +22,12 @@ function MyCart() {
     const [checked, setChecked] = React.useState(false);
     const [checkedContinue, setCheckedContinue] = React.useState(false);
     const dispatch = useDispatch();
+    const { handleSubmit, control } = useForm();
+    const onSubmit = data => {
+        console.log(data);
+        setCheckedContinue(true);
+        setShowContinue(prev => !prev)
+    }
 
     console.log("Cart Items: ", cartItems);
 
@@ -31,10 +38,6 @@ function MyCart() {
     const handleChange = () => {
         setChecked(true);
         setShowPlaceOrder(prev => !prev)
-    };
-    const handleChangeContinue = () => {
-        setCheckedContinue(true);
-        setShowContinue(prev => !prev)
     };
 
     const generateCart = () => {
@@ -101,29 +104,140 @@ function MyCart() {
         <div className="customer-details">
             <h3>Customer Details</h3>
             <div className="textfield">
-                <TextField id="outlined-basic" label="Name" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }} />
-                <TextField id="outlined-basic" label="Phone number" variant="outlined" style={{ marginBottom: "1vw" }} />
-                <TextField id="outlined-basic" label="Pincode" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }} />
-                <TextField id="outlined-basic" label="Locality" variant="outlined" style={{ marginBottom: "1vw" }} />
-                <TextField
-                    fullWidth
-                    id="outlined-multiline-static"
-                    label="Address"
-                    multiline
-                    rows={3}
-                    style={{ marginBottom: "1vw" }}
+                <Controller
+                    name="fullName"
+                    control={control}
+                    defaultValue=""
+                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <TextField id="outlined-basic" label="Name" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }}
+                            value={value}
+                            onChange={onChange}
+                            error={!!error}
+                            helperText={error ? error.message : " "} />
+                    )}
+                    rules={{ required: 'Enter Full name' }}
                 />
-                <TextField id="outlined-basic" label="City/Town" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }} />
-                <TextField id="outlined-basic" label="Landmark" variant="outlined" />
+                <Controller
+                    name="phoneNumber"
+                    control={control}
+                    defaultValue=""
+                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <TextField id="outlined-basic" label="Phone number" variant="outlined" style={{ marginBottom: "1vw" }}
+                            value={value}
+                            onChange={onChange}
+                            error={!!error}
+                            helperText={error ? error.message : " "} />
+                    )}
+                    rules={{ required: 'Enter Phone Number' }}
+                />
+                <Controller
+                    name="pinCode"
+                    control={control}
+                    defaultValue=""
+                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <TextField id="outlined-basic" label="Pincode" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }}
+                            value={value}
+                            onChange={onChange}
+                            error={!!error}
+                            helperText={error ? error.message : " "} />
+                    )}
+                    rules={{ required: 'Enter Pincode' }}
+                />
+                <Controller
+                    name="locality"
+                    control={control}
+                    defaultValue=""
+                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <TextField id="outlined-basic" label="Locality" variant="outlined" style={{ marginBottom: "1vw" }}
+                            value={value}
+                            onChange={onChange}
+                            error={!!error}
+                            helperText={error ? error.message : " "} />
+                    )}
+                    rules={{ required: 'Enter Locality' }}
+                />
+                <Controller
+                    name="address"
+                    control={control}
+                    defaultValue=""
+                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <TextField
+                            fullWidth
+                            id="outlined-multiline-static"
+                            label="Address"
+                            multiline
+                            rows={3}
+                            style={{ marginBottom: "1vw" }}
+                            value={value}
+                            onChange={onChange}
+                            error={!!error}
+                            helperText={error ? error.message : " "} />
+                    )}
+                    rules={{ required: 'Enter Address' }}
+                />
+                <Controller
+                    name="city"
+                    control={control}
+                    defaultValue=""
+                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <TextField id="outlined-basic" label="City/Town" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }}
+                            value={value}
+                            onChange={onChange}
+                            error={!!error}
+                            helperText={error ? error.message : " "} />
+                    )}
+                    rules={{ required: 'Enter City/Town' }}
+                />
+                <Controller
+                    name="landmark"
+                    control={control}
+                    defaultValue=""
+                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <TextField id="outlined-basic" label="Landmark" variant="outlined"
+                            value={value}
+                            onChange={onChange}
+                            error={!!error}
+                            helperText={error ? error.message : " "} />
+                    )}
+                    rules={{ required: 'Enter Landmark' }}
+                />
             </div>
             <div>
                 <h4>Type</h4>
-                <RadioGroup row aria-label="type" name="row-radio-buttons-group" style={{ color: "grey" }}>
-                    <FormControlLabel value="home" control={<Radio />} label="Home" />
-                    <FormControlLabel value="work" control={<Radio />} label="Work" />
-                    <FormControlLabel value="other" control={<Radio />} label="Other" />
-                </RadioGroup>
+                {/* <Controller
+                    name="landmark"
+                    control={control}
+                    defaultValue=""
+                    render={({ field: { onChange, value }, fieldState: { error } }) => ( */}
+                        <RadioGroup row aria-label="type" name="row-radio-buttons-group" style={{ color: "grey" }}>
+                            <FormControlLabel
+                                // onChange={onChange}
+                                // error={!!error}
+                                // helperText={error ? error.message : " "}
+                                value="home"
+                                control={<Radio />}
+                                label="Home"
+                            />
+                            <FormControlLabel
+                                // onChange={onChange}
+                                // error={!!error}
+                                // helperText={error ? error.message : " "}
+                                value="work"
+                                control={<Radio />}
+                                label="Work" />
+                            <FormControlLabel
+                                // onChange={onChange}
+                                // error={!!error}
+                                // helperText={error ? error.message : " "}
+                                value="other"
+                                control={<Radio />}
+                                label="Other" />
+                        </RadioGroup>
+                {/* //     )}
+                //     rules={{ required: 'Choose Type' }}
+                // /> */}
             </div>
+
 
         </div>
     );
@@ -171,11 +285,13 @@ function MyCart() {
 
             <div className="second-section">
                 <Collapse in={checked} collapsedSize={40}>
-                    {secondSection}
-                    {showContinue && <div className="continue" >
-                        <Button variant="contained" style={{ display: { displayContinue } }} checked={checkedContinue}
-                            onClick={handleChangeContinue}>Continue</Button>
-                    </div>}
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        {secondSection}
+                        {showContinue && <div className="continue" >
+                            <Button type="submit" variant="contained" style={{ display: { displayContinue } }} checked={checkedContinue}
+                            >Continue</Button>
+                        </div>}
+                    </form>
                 </Collapse>
             </div>
 
