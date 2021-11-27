@@ -156,7 +156,7 @@ function Dashboard() {
   }
 
   useEffect(() => {
-    getCartBooks("dashboard");
+    getCartBooks();
     getWishListBooks();
   }, [])
 
