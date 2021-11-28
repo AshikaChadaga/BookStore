@@ -33,7 +33,7 @@ function MyCart() {
         setShowContinue(prev => !prev);
     }
 
-    console.log("Cart Items: ", cartItems);
+    // console.log("Cart Items: ", cartItems);
 
     async function getCartBooks() {
         dispatch(getCartItems());
@@ -49,16 +49,15 @@ function MyCart() {
         return (
             <div className="cart-items">
                 {cartItems.cartItems.map((product) => (
-                    <div className="book">
+                    <div key={product.product_id._id} className="book">
                         <div className="image">
-                            <img width="100%" src={bookImage} alt="book Image" />
+                            <img width="100px" src={bookImage} alt="book Image" />
                         </div>
                         <div className="details">
                             <p className="book-name">{product.product_id.bookName}</p>
                             <p className="author">by {product.product_id.author}</p>
                             <p className="price">Rs. {product.product_id.price}</p>
                             <Stack direction="row" spacing={1}>
-
                                 <button disabled={disabled} className="plus-icon" >-</button>
                                 <Avatar
                                     sx={{
@@ -72,8 +71,7 @@ function MyCart() {
                                     variant="square"
                                 >1</Avatar>
                                 <button disabled={disabled} className="plus-icon" id="plus" >+</button>
-
-                                <Button style={{ textTransform: "none", color: "black", marginLeft: "30px" }} variant="text">Remove</Button>
+                                <Button disabled={disabled} style={{ textTransform: "none", color: "black", marginLeft: "30px" }} variant="text">Remove</Button>
 
                             </Stack>
                         </div>
@@ -93,7 +91,7 @@ function MyCart() {
                     control={control}
                     defaultValue=""
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
-                        <TextField id="outlined-basic" label="Name" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }}
+                        <TextField fullWidth id="outlined-basic" label="Name" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }}
                             value={value}
                             disabled={disabled}
                             onChange={onChange}
@@ -107,7 +105,7 @@ function MyCart() {
                     control={control}
                     defaultValue=""
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
-                        <TextField id="outlined-basic" label="Phone number" variant="outlined" style={{ marginBottom: "1vw" }}
+                        <TextField fullWidth id="outlined-basic" label="Phone number" variant="outlined" style={{ marginBottom: "1vw" }}
                             value={value}
                             disabled={disabled}
                             onChange={onChange}
@@ -121,7 +119,7 @@ function MyCart() {
                     control={control}
                     defaultValue=""
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
-                        <TextField id="outlined-basic" label="Pincode" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }}
+                        <TextField fullWidth id="outlined-basic" label="Pincode" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }}
                             value={value}
                             disabled={disabled}
                             onChange={onChange}
@@ -135,7 +133,7 @@ function MyCart() {
                     control={control}
                     defaultValue=""
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
-                        <TextField id="outlined-basic" label="Locality" variant="outlined" style={{ marginBottom: "1vw" }}
+                        <TextField fullWidth id="outlined-basic" label="Locality" variant="outlined" style={{ marginBottom: "1vw" }}
                             value={value}
                             disabled={disabled}
                             onChange={onChange}
@@ -156,7 +154,7 @@ function MyCart() {
                             multiline
                             rows={3}
                             disabled={disabled}
-                            style={{ marginBottom: "1vw" }}
+                            style={{ marginBottom: "1vw", gridColumn:"span 2"}}
                             value={value}
                             onChange={onChange}
                             error={!!error}
@@ -169,7 +167,7 @@ function MyCart() {
                     control={control}
                     defaultValue=""
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
-                        <TextField id="outlined-basic" label="City/Town" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }}
+                        <TextField fullWidth id="outlined-basic" label="City/Town" variant="outlined" style={{ marginBottom: "1vw", marginRight: "1.5vw" }}
                             value={value}
                             disabled={disabled}
                             onChange={onChange}
@@ -183,7 +181,7 @@ function MyCart() {
                     control={control}
                     defaultValue=""
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
-                        <TextField id="outlined-basic" label="Landmark" variant="outlined"
+                        <TextField fullWidth id="outlined-basic" label="Landmark" variant="outlined"
                             value={value}
                             onChange={onChange}
                             disabled={disabled}
@@ -236,9 +234,9 @@ function MyCart() {
             <h3>Order Summary</h3>
             <div className="cart-items">
                 {cartItems.cartItems.map((product) => (
-                    <div className="book">
+                    <div key={product.product_id._id} className="book">
                         <div className="image">
-                            <img width="100%" src={bookImage} alt="book Image" />
+                            <img width="100px" src={bookImage} alt="book Image" />
                         </div>
                         <div className="details">
                             <p className="book-name">{product.product_id.bookName}</p>
