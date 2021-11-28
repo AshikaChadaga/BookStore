@@ -27,24 +27,24 @@
                 margin-bottom: 2vw;
                 .details {
                     padding-left: 3vw;
-                    .plus-icon{
+                    .plus-icon {
                         display: flex;
                         justify-content: center;
                         align-items: center;
                         width: 28px;
                         height: 28px;
                         border-radius: 100%;
-                        border: 1px solid #DBDBDB;
+                        border: 1px solid #dbdbdb;
                         font-size: 30px;
                         color: black;
                         cursor: pointer;
-                        background-color: #FAFAFA;
+                        background-color: #fafafa;
                     }
-                    .plus-icon:disabled{
+                    .plus-icon:disabled {
                         opacity: 0.5;
-                        // cursor: normal;
+                        cursor: default;
                     }
-                    #plus{
+                    #plus {
                         font-size: 20px;
                     }
                     .book-name {
@@ -78,6 +78,9 @@
             text-align: left;
             font-weight: lighter;
             .textfield {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5vw;
                 max-width: 55%;
             }
         }
@@ -131,6 +134,99 @@
             display: flex;
             align-items: right;
             justify-content: right;
+        }
+    }
+}
+
+@media only screen and (max-width: 1900px) {
+    .myCart {
+        .second-section {
+            .customer-details {
+                .textfield {
+                    display: flex;
+                    flex-direction: column;
+                    // max-width: 55%;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1600px) {
+    .myCart {
+        .first-section {
+            max-width: 70%;
+        }
+        .second-section {
+            max-width: 70%;
+            .customer-details {
+                .textfield {
+                    display: flex;
+                    flex-direction: column;
+                    // max-width: 55%;
+                }
+            }
+        }
+        .third-section {
+            max-width: 70%;
+        }
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+    .myCart {
+        .second-section {
+            .customer-details {
+                .textfield {
+                    display: flex;
+                    flex-direction: column;
+                    max-width: 70%;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .myCart {
+        .first-section {
+            max-width: 90%;
+        }
+        .second-section {
+            max-width: 90%;
+            .customer-details {
+                .textfield {
+                    display: flex;
+                    flex-direction: column;
+                    // max-width: 55%;
+                }
+            }
+        }
+        .third-section {
+            max-width: 90%;
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .myCart {
+        padding-left: 2vw;
+        padding-right: 2vw;
+        .first-section {
+            max-width: 100%;
+        }
+        .second-section {
+            max-width: 100%;
+            .customer-details {
+                .textfield {
+                    display: flex;
+                    flex-direction: column;
+                    max-width: 90%;
+                }
+            }
+        }
+        .third-section {
+            max-width: 100%;
         }
     }
 }
