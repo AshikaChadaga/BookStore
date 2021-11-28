@@ -37,15 +37,7 @@
         @include grid(4);
         gap: 2vw;
         margin-bottom: 5vw;
-        .dispaly-books {
-            // max-width: 235px;
-            background: #ffffff 0% 0% no-repeat padding-box;
-            border: 1px solid #e2e2e2;
-            border-radius: 3px;
-            opacity: 1;
-            display: flex;
-            text-align: left;
-            justify-content: left;
+        .display-books {
             .book-image {
                 min-width: 50%;
             }
@@ -85,6 +77,29 @@
             @include grid(1);
             margin-left: 15%;
             margin-right: 15%;
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .main-content {
+        // padding-left: 0px;
+
+        padding-left: 11vw;
+        padding-right: 11vw;
+        .title {
+            .left-content {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        .display-cards {
+            margin-left: 0%;
+            margin-right: 0%;
+            gap: 5vw;
+            .display-books {
+                min-width: 100%;
+            }
         }
     }
 }
