@@ -59,7 +59,7 @@ function MyCart() {
                             <p className="price">Rs. {product.product_id.price}</p>
                             <Stack direction="row" spacing={1}>
 
-                                <button disabled={disabled} class="plus-icon" >-</button>
+                                <button disabled={disabled} className="plus-icon" >-</button>
                                 <Avatar
                                     sx={{
                                         width: 50,
@@ -71,7 +71,7 @@ function MyCart() {
                                     }}
                                     variant="square"
                                 >1</Avatar>
-                                <button disabled={disabled} class="plus-icon" id="plus" >+</button>
+                                <button disabled={disabled} className="plus-icon" id="plus" >+</button>
 
                                 <Button style={{ textTransform: "none", color: "black", marginLeft: "30px" }} variant="text">Remove</Button>
 
@@ -204,7 +204,7 @@ function MyCart() {
                             onChange={onChange}
                             value={value}
                             error={!!error}
-                            helperText={error ? error.message : " "} 
+                            helpertext={error ? error.message : " "} 
                             row aria-label="type" 
                             style={{ color: "grey" }}>
                             <FormControlLabel 
