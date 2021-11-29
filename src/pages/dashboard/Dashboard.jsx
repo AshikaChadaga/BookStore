@@ -52,7 +52,7 @@ function Dashboard() {
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cartItems);
   const wishlistItems = useSelector(state => state.wishlistItems);
-
+  console.log("Cart Items ", cartItems);
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -117,6 +117,7 @@ function Dashboard() {
     cartItems.cartItems.map((product) => {
       bookIdList.push(product.product_id._id);
     })
+    // console.log("Book Id List ", bookIdList);
 
     if (bookIdList.includes(book._id)) {
       return (
