@@ -103,6 +103,31 @@ function MyCart() {
             });
     };
 
+    const handleCheckout = () => {
+        console.log("in checkout");
+        let orders = [];
+        cartItems.cartItems.map((product) => {
+            let data = {
+                "product_id": product.product_id._id,
+                "product_name": product.product_id.bookName,
+                "product_quantity": product.quantityToBuy,
+                "product_price": product.product_id.price
+            }
+            orders.push(data);
+        })
+        console.log("Orders : ", orders);
+        let payload = {
+            "orders": orders
+        }
+        userService.placeOrder("/add/order/", payload)
+            .then((res) => {
+                console.log("Order Placed!");
+            })
+            .catch(error => {
+                console.error('Error encountered while Placing Order!', error);
+            });
+    }
+
     const generateCart = () => {
 
         return (
@@ -345,7 +370,7 @@ function MyCart() {
                 <Collapse in={checkedContinue} collapsedSize={40}>
                     {thirdSection}
                     <div className="checkout" >
-                        <Button  variant="contained" >Checkout</Button>
+                        <Button onClick={() => { handleCheckout() }} variant="contained" >Checkout</Button>
                     </div>
                 </Collapse>
 
