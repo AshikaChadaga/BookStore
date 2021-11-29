@@ -54,7 +54,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "#9D9D9D",
+  color: "black",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -66,60 +66,63 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }));
 
-export function Header() {
+export function Header(props) {
   let navigate = useNavigate();
   const cartItems = useSelector(state => state.cartItems);
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ backgroundColor: "#A03037", overflowX: "hidden" }}>
-        <Toolbar>
-          <img onClick={() => navigate("/dashboard")} style={{ marginLeft: "10%", marginRight: "3px", cursor: "pointer" }} src={book} alt="book image" />
-          <Typography
-            onClick={() => navigate("/dashboard")}
-            className="bookstore"
-            variant="h6"
-            component="div"
-            nowrap="false"
-            sx={{ display: { xs: 'none', sm: "block", font: "normal normal normal 20px/26px Roboto" }, cursor: "pointer" }}
-          >
-            Bookstore
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon style={{ color: "#9D9D9D" }} />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ marginRight: "1%" }}>
-            <IconButton >
-              <PersonOutlineOutlinedIcon style={{ color: "#fff" }} />
-            </IconButton>
-            <Typography>
-              {localStorage.getItem("fullName")}
+    <div>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" style={{ backgroundColor: "#A03037", overflowX: "hidden" }}>
+          <Toolbar>
+            <img onClick={() => navigate("/dashboard")} style={{ marginLeft: "10%", marginRight: "3px", cursor: "pointer" }} src={book} alt="book image" />
+            <Typography
+              onClick={() => navigate("/dashboard")}
+              className="bookstore"
+              variant="h6"
+              component="div"
+              nowrap="false"
+              sx={{ display: { xs: 'none', sm: "block", font: "normal normal normal 20px/26px Roboto" }, cursor: "pointer" }}
+            >
+              Bookstore
             </Typography>
-          </Box>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon style={{ color: "#9D9D9D" }} />
+              </SearchIconWrapper>
+              <StyledInputBase
+                onChange={(e) => props.setSearchWord(e.target.value)}
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
 
-          <Box sx={{ marginRight: "15%" }}>
-            <IconButton onClick={() => navigate('/cart', { replace: true })}>
-              <ThemeProvider theme={theme}>
-                <Badge badgeContent={cartItems.cartItems.length} color="myColor">
-                  <ShoppingCartOutlinedIcon style={{ color: "#fff" }} />
-                </Badge>
-              </ThemeProvider>
-            </IconButton>
-            <Typography>
-              Cart
-            </Typography>
-          </Box>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ marginRight: "1%" }}>
+              <IconButton >
+                <PersonOutlineOutlinedIcon style={{ color: "#fff" }} />
+              </IconButton>
+              <Typography>
+                {localStorage.getItem("fullName")}
+              </Typography>
+            </Box>
 
-        </Toolbar>
-      </AppBar>
-    </Box >
+            <Box sx={{ marginRight: "15%" }}>
+              <IconButton onClick={() => navigate('/cart', { replace: true })}>
+                <ThemeProvider theme={theme}>
+                  <Badge badgeContent={cartItems.cartItems.length} color="myColor">
+                    <ShoppingCartOutlinedIcon style={{ color: "#fff" }} />
+                  </Badge>
+                </ThemeProvider>
+              </IconButton>
+              <Typography>
+                Cart
+              </Typography>
+            </Box>
+
+          </Toolbar>
+        </AppBar>
+      </Box >
+    </div>
   );
 }
 
