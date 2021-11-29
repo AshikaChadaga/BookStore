@@ -52,7 +52,9 @@ function Dashboard() {
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cartItems);
   const wishlistItems = useSelector(state => state.wishlistItems);
-  console.log("Cart Items ", cartItems);
+
+  // console.log("Cart Items ", cartItems);
+
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -100,7 +102,6 @@ function Dashboard() {
   }
 
   const displayBook = () => {
-
     userService.getBooks("/get/book")
       .then((res) => {
         // console.log(res.data.result);
@@ -117,7 +118,6 @@ function Dashboard() {
     cartItems.cartItems.map((product) => {
       bookIdList.push(product.product_id._id);
     })
-    // console.log("Book Id List ", bookIdList);
 
     if (bookIdList.includes(book._id)) {
       return (
@@ -159,6 +159,38 @@ function Dashboard() {
     }
   }
 
+  const sortLowToHigh = () => {
+    books.sort((a, b) => {
+      return a.price - b.price;
+    });
+    console.log(books);
+  }
+
+  const sortHighToLow = () => {
+    books.sort((a, b) => {
+      return b.price - a.price;
+    });
+    console.log(books);
+  }
+
+  const sortAtoZ = () => {
+    books.sort((a, b) => {
+      let aBookName = a.bookName.toLowerCase();
+      let bBookName = b.bookName.toLowerCase();
+      return (aBookName < bBookName) ? -1 : (aBookName > bBookName) ? 1 : 0;
+
+    });
+  }
+
+  const sortZtoA = () => {
+    books.sort((a, b) => {
+      let aBookName = a.bookName.toLowerCase();
+      let bBookName = b.bookName.toLowerCase();
+      return (aBookName > bBookName) ? -1 : (aBookName < bBookName) ? 1 : 0;
+
+    });
+  }
+
   useEffect(() => {
     getCartBooks();
     getWishListBooks();
@@ -167,6 +199,9 @@ function Dashboard() {
   useEffect(() => {
     displayBook();
   }, [cartItems, wishlistItems]);
+
+  useEffect(() => {
+  }, [books]);
 
   return (
     <div>
@@ -188,10 +223,10 @@ function Dashboard() {
                 <MenuItem style={{ display: "none" }} disabled value="">
                   Sort by relevance
                 </MenuItem>
-                <MenuItem style={{ fontSize: "15px" }} value={1}>Price: Low to High</MenuItem>
-                <MenuItem style={{ fontSize: "15px" }} value={2}>Price: High to Low</MenuItem>
-                <MenuItem style={{ fontSize: "15px" }} value={3}>Sort: A - Z</MenuItem>
-                <MenuItem style={{ fontSize: "15px" }} value={3}>Sort: Z - A</MenuItem>
+                <MenuItem onClick={sortLowToHigh} style={{ fontSize: "15px" }} value={1}>Price: Low to High</MenuItem>
+                <MenuItem onClick={sortHighToLow} style={{ fontSize: "15px" }} value={2}>Price: High to Low</MenuItem>
+                <MenuItem onClick={sortAtoZ} style={{ fontSize: "15px" }} value={3}>Sort: A - Z</MenuItem>
+                <MenuItem onClick={sortZtoA} style={{ fontSize: "15px" }} value={4}>Sort: Z - A</MenuItem>
               </Select>
             </FormControl>
           </div>
