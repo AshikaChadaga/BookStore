@@ -9,7 +9,7 @@
     padding-right: 11vw;
     min-height: 84.8vh;
     .title {
-        margin-top: 3vh;
+        margin-top: 10vh;
         @include grid(2);
         text-align: left;
         margin-bottom: 1vw;
@@ -46,6 +46,26 @@
             @include grid(2);
             gap: 1vw;
             margin-bottom: 30px;
+        }
+    }
+}
+
+@media only screen and (max-width: 2600px) {
+    .main-content {
+        .title {
+            .sort-options {
+                margin-right: 5vw;
+                
+            }
+        }
+        .display-cards {
+            @include grid(4);
+            .display-books {
+                .book-image {
+                    min-width: 90%;
+                }
+
+            }
         }
     }
 }
@@ -88,6 +108,8 @@
         padding-left: 11vw;
         padding-right: 11vw;
         .title {
+
+        margin-top: 13vh;
             .left-content {
                 display: flex;
                 flex-direction: column;
