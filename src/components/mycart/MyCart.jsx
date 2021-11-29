@@ -115,7 +115,7 @@ function MyCart() {
             }
             orders.push(data);
         })
-        console.log("Orders : ", orders);
+        // console.log("Orders : ", orders);
         let payload = {
             "orders": orders
         }
