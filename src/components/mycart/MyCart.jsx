@@ -18,8 +18,6 @@ const userService = new UserService();
 
 function MyCart() {
     const cartItems = useSelector(state => state.cartItems);
-    const [displayPlaceOrder, setDisplayPlaceOrder] = useState("normal");
-    const [displayContinue, setDisplayContinue] = useState("normal");
     const [showPlaceOrder, setShowPlaceOrder] = useState(true);
     const [showContinue, setShowContinue] = useState(true);
     const [checked, setChecked] = useState(false);
@@ -61,6 +59,8 @@ function MyCart() {
         setChecked(true);
         setShowPlaceOrder(prev => !prev)
     };
+
+
 
     const handleRemove = (product) => {
         userService.deleteCartItem(`/remove_cart_item/${product._id}`)
@@ -114,6 +114,7 @@ function MyCart() {
                 "product_price": product.product_id.price
             }
             orders.push(data);
+            handleRemove(product);
         })
         // console.log("Orders : ", orders);
         let payload = {
@@ -127,6 +128,8 @@ function MyCart() {
                 console.error('Error encountered while Placing Order!', error);
             });
     }
+
+
 
     const generateCart = () => {
 
@@ -348,18 +351,18 @@ function MyCart() {
                 </div>
 
                 {generateCart()}
-                {showPlaceOrder && <div className="place-order" style={{ display: { displayPlaceOrder } }}>
-                    <Button variant="contained" checked={checked}
+                {showPlaceOrder && <div className="place-order" >
+                    <Button variant="contained" checked={checked} disabled={cartItems.cartItems.length == 0 ? true : false}
                         onClick={handleChange}>place order</Button>
                 </div>}
             </div>
-
+            
             <div className="second-section">
                 <Collapse in={checked} collapsedSize={40}>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         {secondSection}
                         {showContinue && <div className="continue" >
-                            <Button type="submit" variant="contained" style={{ display: { displayContinue } }} checked={checkedContinue}
+                            <Button type="submit" variant="contained" checked={checkedContinue}
                             >Continue</Button>
                         </div>}
                     </form>
