@@ -71,7 +71,7 @@ export function Header() {
   const cartItems = useSelector(state => state.cartItems);
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ backgroundColor: "#A03037", overflowX:"hidden" }}>
+      <AppBar position="static" style={{ backgroundColor: "#A03037", overflowX: "hidden" }}>
         <Toolbar>
           <img onClick={() => navigate("/dashboard")} style={{ marginLeft: "10%", marginRight: "3px", cursor: "pointer" }} src={book} alt="book image" />
           <Typography
@@ -80,7 +80,7 @@ export function Header() {
             variant="h6"
             component="div"
             nowrap="false"
-            sx={{ display: { xs:'none', sm: "block", font: "normal normal normal 20px/26px Roboto" }, cursor: "pointer" }}
+            sx={{ display: { xs: 'none', sm: "block", font: "normal normal normal 20px/26px Roboto" }, cursor: "pointer" }}
           >
             Bookstore
           </Typography>
