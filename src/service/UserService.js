@@ -31,5 +31,14 @@ class UserService {
     getWishlistItems(url) {
         return axiosService.getMethod(`${baseURL}${url}`, config);
     }
+    deleteCartItem(url){
+        return axiosService.deleteMethod(`${baseURL}${url}`, config);
+    }
+    updateQuantity(url, data){
+        return axiosService.putMethod(`${baseURL}${url}`, data, config);
+    }
+    updateDetails(url, data){
+        return axiosService.putMethod(`${baseURL}${url}`, data, config);
+    }
 }
 export default UserService
