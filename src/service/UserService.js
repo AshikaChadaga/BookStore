@@ -40,5 +40,8 @@ class UserService {
     updateDetails(url, data){
         return axiosService.putMethod(`${baseURL}${url}`, data, config);
     }
+    placeOrder(url, data) {
+        return axiosService.postMethod(`${baseURL}${url}`, data, config);
+    }
 }
 export default UserService
