@@ -11,7 +11,10 @@ import TextField from '@mui/material/TextField';
 import Collapse from "@mui/material/Collapse";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useForm, Controller } from 'react-hook-form';
+import UserService from '../../service/UserService';
 import './MyCart.scss'
+
+const userService = new UserService();
 
 function MyCart() {
     const cartItems = useSelector(state => state.cartItems);
@@ -28,9 +31,24 @@ function MyCart() {
 
     const onSubmit = data => {
         console.log(data);
-        setCheckedContinue(true);
-        setDisabled(true);
-        setShowContinue(prev => !prev);
+
+        let payload = {
+            "addressType": data.type,
+            "fullAddress": data.address,
+            "city": data.city,
+            "state": data.state
+        }
+        userService.updateDetails("/edit_user", payload)
+            .then((res) => {
+                console.log("Customer Details Updated!");
+                setCheckedContinue(true);
+                setDisabled(true);
+                setShowContinue(prev => !prev);
+                // getCartBooks();
+            })
+            .catch(error => {
+                console.error('Error encountered while updating customer details!', error);
+            });
     }
 
     // console.log("Cart Items: ", cartItems);
@@ -42,6 +60,47 @@ function MyCart() {
     const handleChange = () => {
         setChecked(true);
         setShowPlaceOrder(prev => !prev)
+    };
+
+    const handleRemove = (product) => {
+        userService.deleteCartItem(`/remove_cart_item/${product._id}`)
+            .then((res) => {
+                console.log("Item deleted from Cart!");
+                getCartBooks();
+            })
+            .catch(error => {
+                console.error('Error encountered while Removing from cart!', error);
+            });
+    }
+
+    const handleIncrement = (product) => {
+        let quantity = product.quantityToBuy + 1;
+        let data = {
+            "quantityToBuy": quantity
+        }
+        userService.updateQuantity(`/cart_item_quantity/${product._id}`, data)
+            .then((res) => {
+                console.log("Quantity Incremented!");
+                getCartBooks();
+            })
+            .catch(error => {
+                console.error('Error encountered while Incementing Quantity!', error);
+            });
+    };
+
+    const handleDecrement = (product) => {
+        let quantity = product.quantityToBuy - 1;
+        let data = {
+            "quantityToBuy": quantity
+        }
+        userService.updateQuantity(`/cart_item_quantity/${product._id}`, data)
+            .then((res) => {
+                console.log("Quantity Decremented!");
+                getCartBooks();
+            })
+            .catch(error => {
+                console.error('Error encountered while Decementing Quantity!', error);
+            });
     };
 
     const generateCart = () => {
@@ -58,7 +117,7 @@ function MyCart() {
                             <p className="author">by {product.product_id.author}</p>
                             <p className="price">Rs. {product.product_id.price}</p>
                             <Stack direction="row" spacing={1}>
-                                <button disabled={disabled} className="plus-icon" >-</button>
+                                <button onClick={() => { handleDecrement(product) }} disabled={product.quantityToBuy == 1 ? true : false} className="plus-icon" >-</button>
                                 <Avatar
                                     sx={{
                                         width: 50,
@@ -69,9 +128,9 @@ function MyCart() {
                                         border: "1px solid #DBDBDB"
                                     }}
                                     variant="square"
-                                >1</Avatar>
-                                <button disabled={disabled} className="plus-icon" id="plus" >+</button>
-                                <Button disabled={disabled} style={{ textTransform: "none", color: "black", marginLeft: "30px" }} variant="text">Remove</Button>
+                                >{product.quantityToBuy}</Avatar>
+                                <button onClick={() => { handleIncrement(product) }} className="plus-icon" id="plus" >+</button>
+                                <Button onClick={() => { handleRemove(product) }} style={{ textTransform: "none", color: "black", marginLeft: "30px" }} variant="text">Remove</Button>
 
                             </Stack>
                         </div>
@@ -154,7 +213,7 @@ function MyCart() {
                             multiline
                             rows={3}
                             disabled={disabled}
-                            style={{ marginBottom: "1vw", gridColumn:"span 2"}}
+                            style={{ marginBottom: "1vw", gridColumn: "span 2" }}
                             value={value}
                             onChange={onChange}
                             error={!!error}
@@ -177,18 +236,18 @@ function MyCart() {
                     rules={{ required: 'Enter City/Town' }}
                 />
                 <Controller
-                    name="landmark"
+                    name="state"
                     control={control}
                     defaultValue=""
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
-                        <TextField fullWidth id="outlined-basic" label="Landmark" variant="outlined"
+                        <TextField fullWidth id="outlined-basic" label="State" variant="outlined"
                             value={value}
                             onChange={onChange}
                             disabled={disabled}
                             error={!!error}
                             helperText={error ? error.message : " "} />
                     )}
-                    rules={{ required: 'Enter Landmark' }}
+                    rules={{ required: 'Enter State' }}
                 />
             </div>
             <div>
@@ -202,22 +261,22 @@ function MyCart() {
                             onChange={onChange}
                             value={value}
                             error={!!error}
-                            helpertext={error ? error.message : " "} 
-                            row aria-label="type" 
+                            helpertext={error ? error.message : " "}
+                            row aria-label="type"
                             style={{ color: "grey" }}>
-                            <FormControlLabel 
-                                value="home"
+                            <FormControlLabel
+                                value="Home"
                                 disabled={disabled}
                                 control={<Radio />}
                                 label="Home"
                             />
                             <FormControlLabel
-                                value="work"
+                                value="Office"
                                 disabled={disabled}
                                 control={<Radio />}
                                 label="Work" />
                             <FormControlLabel
-                                value="other"
+                                value="Other"
                                 disabled={disabled}
                                 control={<Radio />}
                                 label="Other" />
@@ -241,7 +300,7 @@ function MyCart() {
                         <div className="details">
                             <p className="book-name">{product.product_id.bookName}</p>
                             <p className="author">by {product.product_id.author}</p>
-                            <p className="price">Rs. {product.product_id.price}</p>
+                            <p className="price">Rs. {product.product_id.price * product.quantityToBuy}</p>
                         </div>
                     </div>
                 ))
@@ -286,7 +345,7 @@ function MyCart() {
                 <Collapse in={checkedContinue} collapsedSize={40}>
                     {thirdSection}
                     <div className="checkout" >
-                        <Button variant="contained" >Checkout</Button>
+                        <Button  variant="contained" >Checkout</Button>
                     </div>
                 </Collapse>
 
