@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import UserService from '../../service/UserService';
 import './Dashboard.scss';
 import { getCartItems, getWishlistItems } from '../../store/actions/cartAction';
-import DisplayBooks from '../../components/displaybooks/DisplayBooks';
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -23,7 +22,6 @@ import StarIcon from "@mui/icons-material/Star";
 import { green } from "@mui/material/colors";
 import bookImage from "../../assets/dashboard/Image 11.png";
 import Button from "@mui/material/Button";
-import { display } from '@mui/system';
 
 
 const userService = new UserService();
