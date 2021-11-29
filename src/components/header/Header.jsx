@@ -72,7 +72,7 @@ export function Header(props) {
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" style={{ backgroundColor: "#A03037", overflowX: "hidden" }}>
+        <AppBar position="fixed" style={{ backgroundColor: "#A03037", overflowX: "hidden"}}>
           <Toolbar>
             <img onClick={() => navigate("/dashboard")} style={{ marginLeft: "10%", marginRight: "3px", cursor: "pointer" }} src={book} alt="book image" />
             <Typography
