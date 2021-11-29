@@ -1,6 +1,7 @@
 .myCart {
     padding-left: 11vw;
     padding-right: 11vw;
+    min-height: 76.4vh;
     .first-section {
         margin-top: 4vw;
         max-width: 60%;
@@ -210,6 +211,7 @@
 
 @media only screen and (max-width: 500px) {
     .myCart {
+        min-height: 73vh;
         padding-left: 2vw;
         padding-right: 2vw;
         .first-section {
