@@ -121,6 +121,11 @@ function Dashboard() {
       bookIdList.push(product.product_id._id);
     })
 
+    let wishlistIds = [];
+    wishlistItems.wishlistItems.map((product) => {
+      wishlistIds.push(product.product_id._id);
+    })
+
     if (bookIdList.includes(book._id)) {
       return (
         <div style={{ marginLeft: "30px", marginRight: "30px" }}>
@@ -131,7 +136,7 @@ function Dashboard() {
       )
     }
 
-    else if (wishlistItems.wishlistItems.includes(book._id)) {
+    else if (wishlistIds.includes(book._id)) {
       return (
         <div style={{ marginLeft: "30px", marginRight: "30px" }}>
           <Button
@@ -203,7 +208,7 @@ function Dashboard() {
                 id={book._id}
                 sx={{ maxWidth: 320, maxHeight: 500, background: "#FFFFFF 0% 0% no-repeat padding-box", border: "1px solid #E2E2E2", borderRadius: "3px", opacity: "1" }}>
                 <CardContent style={{ backgroundColor: "#F5F5F5" }}>
-                  <img width="40%" src={bookImage} alt="book Image" />
+                  <img width="40%" src={bookImage} alt="book" />
                 </CardContent>
                 <CardContent >
                   <Typography style={{ paddingLeft: "0.7vw", fontWeight: "bold" }} variant="body2" color="black" textAlign="left">
@@ -287,7 +292,7 @@ function Dashboard() {
         </div>
 
         <div>
-          {searchWord.length == 0 ? displayBooks(currentBooks) : displayBooks(currentBooks.filter(book => (book.bookName.toLowerCase().includes(searchWord) || book.author.toLowerCase().includes(searchWord))))}
+          {searchWord.length === 0 ? displayBooks(currentBooks) : displayBooks(currentBooks.filter(book => (book.bookName.toLowerCase().includes(searchWord) || book.author.toLowerCase().includes(searchWord))))}
         </div>
       </div>
       <ThemeProvider theme={theme}>
