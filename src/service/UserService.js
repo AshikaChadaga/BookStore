@@ -34,6 +34,9 @@ class UserService {
     deleteCartItem(url){
         return axiosService.deleteMethod(`${baseURL}${url}`, config);
     }
+    deleteWishlistItem(url){
+        return axiosService.deleteMethod(`${baseURL}${url}`, config);
+    }
     updateQuantity(url, data){
         return axiosService.putMethod(`${baseURL}${url}`, data, config);
     }
