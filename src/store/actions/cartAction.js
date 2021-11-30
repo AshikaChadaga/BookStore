@@ -25,13 +25,13 @@ export const getWishlistItems = () => async dispatch => {
 
     try {
         const res = await userService.getWishlistItems("/get_wishlist_items");
-        let bookIdList = [];
-        res.data.result.map(book => {
-            bookIdList.push(book.product_id._id)
-        })
+        // let bookIdList = [];
+        // res.data.result.map(book => {
+        //     bookIdList.push(book.product_id._id)
+        // })
         dispatch({
             type: GET_WISHLIST_ITEMS,
-            payload: bookIdList
+            payload: res.data.result
         })
     }
     catch (e) {
