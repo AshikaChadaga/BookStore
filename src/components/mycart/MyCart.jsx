@@ -138,14 +138,14 @@ function MyCart() {
                 {cartItems.cartItems.map((product) => (
                     <div key={product.product_id._id} className="book">
                         <div className="image">
-                            <img width="100px" src={bookImage} alt="book Image" />
+                            <img width="100px" src={bookImage} alt="book" />
                         </div>
                         <div className="details">
                             <p className="book-name">{product.product_id.bookName}</p>
                             <p className="author">by {product.product_id.author}</p>
                             <p className="price">Rs. {product.product_id.price}</p>
                             <Stack direction="row" spacing={1}>
-                                <button onClick={() => { handleDecrement(product) }} disabled={product.quantityToBuy == 1 ? true : false} className="plus-icon" >-</button>
+                                <button onClick={() => { handleDecrement(product) }} disabled={product.quantityToBuy === 1 ? true : false} className="plus-icon" >-</button>
                                 <Avatar
                                     sx={{
                                         width: 50,
@@ -323,7 +323,7 @@ function MyCart() {
                 {cartItems.cartItems.map((product) => (
                     <div key={product.product_id._id} className="book">
                         <div className="image">
-                            <img width="100px" src={bookImage} alt="book Image" />
+                            <img width="100px" src={bookImage} alt="book" />
                         </div>
                         <div className="details">
                             <p className="book-name">{product.product_id.bookName}</p>
@@ -352,7 +352,7 @@ function MyCart() {
 
                 {generateCart()}
                 {showPlaceOrder && <div className="place-order" >
-                    <Button variant="contained" checked={checked} disabled={cartItems.cartItems.length == 0 ? true : false}
+                    <Button variant="contained" checked={checked} disabled={cartItems.cartItems.length === 0 ? true : false}
                         onClick={handleChange}>place order</Button>
                 </div>}
             </div>

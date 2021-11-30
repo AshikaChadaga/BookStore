@@ -62,7 +62,7 @@ function Login() {
                     defaultValue=""
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <TextField size="small" fullWidth id="outlined-basic" label="Email Id" variant="outlined"
-                            fullWidth style={{ fontSize: "1px" }} size="small" label="Email Id" variant="outlined"
+                            style={{ fontSize: "1px" }} 
                             value={value}
                             onChange={onChange}
                             error={!!error}

@@ -72,7 +72,7 @@ function Homepage() {
                   <StyledTab label="SignUp" />
                 </StyledTabs>
                 <Box sx={{ p: 2 }} />
-                {value == 0 ?
+                {value === 0 ?
                   (window.history.pushState('', 'login', '/login'),
                     <div><Login /></div>)
                   :

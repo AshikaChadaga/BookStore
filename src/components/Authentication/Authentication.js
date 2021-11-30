@@ -1,5 +1,3 @@
-import React from 'react';
-
 class Authentication {
     constructor(props) {
         if (localStorage.getItem("id"))
