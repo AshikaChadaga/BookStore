@@ -84,6 +84,12 @@ export function Header(props) {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("id");
+    console.log("Local Storage Cleared");
+    navigate("/login");
+  }
+
   const open = Boolean(anchorEl);
 
   return (
@@ -140,7 +146,7 @@ export function Header(props) {
                     <FavoriteBorderOutlinedIcon onClick={() => navigate("/dashboard/wishlist")} style={{color:"#878787", width:"20"}} size="small" />
                     <span onClick={() => navigate("/dashboard/wishlist")} className="text">My Wishlist</span>
                   </p>
-                  <Button style={{marginBottom:"10px", color:"#A03037", borderColor:"#A03037"}} variant="outlined">Logout</Button>
+                  <Button onClick={() => handleLogout()} style={{marginBottom:"10px", color:"#A03037", borderColor:"#A03037"}} variant="outlined">Logout</Button>
                 </div>
               </Popover>
             </Box>
