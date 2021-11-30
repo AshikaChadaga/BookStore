@@ -114,11 +114,11 @@ export function Header(props) {
             </Search>
 
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ marginRight: "1%" }}>
+            <Box sx={{ marginRight: "1%" }} >
               <IconButton onClick={handleClick}>
                 <PersonOutlineOutlinedIcon style={{ color: "#fff" }} />
               </IconButton>
-              <Typography>
+              <Typography style={{cursor:"pointer"}} onClick={handleClick}>
                 {localStorage.getItem("fullName")}
               </Typography>
               <Popover
@@ -135,12 +135,12 @@ export function Header(props) {
                 }}
               >
                 <div className="pop-items">
-                  <p className="title">Hello, Ashika</p>
+                  <p className="title">Hello, {localStorage.getItem("fullName")}</p>
                   <p className="wishlist">
-                    <FavoriteBorderOutlinedIcon onClick={() => navigate("/dashboard/wishlist")} style={{color:"lightgrey", width:"20"}} size="small" />
+                    <FavoriteBorderOutlinedIcon onClick={() => navigate("/dashboard/wishlist")} style={{color:"#878787", width:"20"}} size="small" />
                     <span onClick={() => navigate("/dashboard/wishlist")} className="text">My Wishlist</span>
                   </p>
-                  <Button style={{marginBottom:"10px"}} variant="outlined">Logout</Button>
+                  <Button style={{marginBottom:"10px", color:"#A03037", borderColor:"#A03037"}} variant="outlined">Logout</Button>
                 </div>
               </Popover>
             </Box>
