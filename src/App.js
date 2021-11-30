@@ -21,8 +21,12 @@ function App() {
             <Route exact path='/cart' element={<ProtectedRoute />}>
               <Route exact path='/cart' element={<CartPage />} />
             </Route>
-            <Route exact path='/dashboard/wishlist' element={<Wishlist />}></Route>
-            <Route exact path='/cart/order-placed' element={<OrderPlaced />} />
+            <Route exact path='/dashboard/wishlist' element={<ProtectedRoute />}>
+              <Route exact path='/dashboard/wishlist' element={<Wishlist />} />
+            </Route>
+            <Route exact path='/cart/order-placed' element={<ProtectedRoute />}>
+              <Route exact path='/cart/order-placed' element={<OrderPlaced />} />
+            </Route>
             <Route exact path='*' component={() => "404 Not Found"}></Route>
           </Routes>
         </div>
