@@ -81,7 +81,7 @@ function Dashboard() {
         displayBook();
       })
       .catch(error => {
-        console.error('Error encountered while Adding Book To Wishlist!', error);
+        console.error('Error encountered while Adding Book To Cart!', error);
       });
   }
 
