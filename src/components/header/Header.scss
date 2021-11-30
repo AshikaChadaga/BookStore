@@ -1,0 +1,23 @@
+.pop-items{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1vw 1vw;
+    .title{
+        margin: 0px;
+        padding: 1vw 0px;
+    }
+    .wishlist{
+        margin: 0px;
+        cursor: pointer;
+        padding-bottom: 1vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .text{
+            padding-left: 5px;
+            padding-bottom: 3px;
+        }
+    }
+}
