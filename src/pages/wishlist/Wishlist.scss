@@ -54,3 +54,43 @@
         }
     }
 }
+
+@media only screen and (max-width: 900px) {
+    .mainContent {
+        min-height: 76.2vh;
+        padding-left: 5vw;
+        padding-right: 5vw;
+        .title{
+            margin-top: 100px;
+        }
+        .book {
+            grid-template-columns: 1fr 6fr 8fr;
+            .buttons{
+                margin-left: 10px;
+            }
+        }
+    }
+    
+}
+
+@media only screen and (max-width: 500px) {
+    .mainContent {
+        .wishlist-items {
+            .book {
+                display: grid;
+                grid-template-columns: 1fr 8fr ;
+                .image{
+                    margin-top: 10px;
+                }
+                .buttons{
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    margin-left: 3px;
+                   grid-column: 1/span 2;
+                   
+                }
+            }
+        }
+    }
+    
+}
