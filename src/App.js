@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './pages/dashboard/Dashboard';
 import CartPage from './pages/cartpage/CartPage';
 import { ProtectedRoute } from './components/protectedroute/ProtectedRoute';
+import Wishlist from './pages/wishlist/Wishlist';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route exact path='/cart' element={<ProtectedRoute />}>
               <Route exact path='/cart' element={<CartPage />} />
             </Route>
+            <Route path='/dashboard/wishlist' element={<Wishlist />}></Route>
             <Route exact path='*' component={() => "404 Not Found"}></Route>
           </Routes>
         </div>
