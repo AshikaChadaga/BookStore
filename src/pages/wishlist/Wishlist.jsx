@@ -5,7 +5,12 @@ import './Wishlist.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { getCartItems, getWishlistItems } from '../../store/actions/cartAction';
 import bookImage from "../../assets/dashboard/Image 11.png";
-import '../../components/mycart/MyCart.scss'
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from "@mui/material/Button";
+import IconButton from '@mui/material/IconButton';
+import UserService from '../../service/UserService';
+
+const userService = new UserService();
 
 function Wishlist() {
 
@@ -17,29 +22,71 @@ function Wishlist() {
         dispatch(getWishlistItems());
     }
 
+    async function getCartBooks() {
+        dispatch(getCartItems());
+      }
+
+    const handleRemove = (bookId) => {
+        userService.deleteWishlistItem(`/remove_wishlist_item/${bookId}`)
+            .then((res) => {
+                console.log("Item deleted from Wishlist!");
+                getWishlistBooks();
+            })
+            .catch(error => {
+                console.error('Error encountered while Removing from Wishlist!', error);
+            });
+    }
+
+    const addBookToBag = (bookId) => {
+        userService.addToBag(`/add_cart_item/${bookId}`, {})
+            .then(() => {
+                console.log("Book Added To Cart!");
+                handleRemove(bookId);
+                getWishlistItems();
+                getCartBooks();
+
+            })
+            .catch(error => {
+                console.error('Error encountered while Adding Book To Cart!', error);
+            });
+    }
+
     React.useEffect(() => {
+        getCartBooks();
         getWishlistBooks();
     }, [])
 
     const generateWishlist = () => {
         return (
-            <div className="cart-items">
-                {wishlistItems.wishlistItems.map((product) => (
-                    <div key={product.product_id._id} className="book">
-                        <div className="image">
-                            <img width="100px" src={bookImage} alt="book" />
+            <div className="wishlist-items">
+
+                {
+                    wishlistItems.wishlistItems.map((product) => (
+
+                        <div key={product.product_id._id} className="book">
+                            <div className="image">
+                                <img width="100px" src={bookImage} alt="book" />
+                            </div>
+                            <div className="details">
+                                <p className="book-name">{product.product_id.bookName}</p>
+                                <p className="author">by {product.product_id.author}</p>
+                                <p className="price">Rs. {product.product_id.price}</p>
+                            </div>
+
+                            <div className="buttons">
+                                <Button onClick={() => addBookToBag(product.product_id._id)} style={{ backgroundColor: "#A03037", marginRight: "30px" }} variant="contained">
+                                    ADD TO BAG
+                                </Button>
+                                <IconButton onClick={() => handleRemove(product.product_id._id)}>
+                                    <DeleteIcon style={{ color: "grey", cursor: "pointer" }}></DeleteIcon>
+                                </IconButton>
+                            </div>
                         </div>
-                        <div className="details">
-                            <p className="book-name">{product.product_id.bookName}</p>
-                            <p className="author">by {product.product_id.author}</p>
-                            <p className="price">Rs. {product.product_id.price}</p>
-                        </div>
-                    </div>
-                ))
+
+                    ))
                 }
+
             </div>
-
-
         )
     }
 
