@@ -13,10 +13,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { useForm, Controller } from 'react-hook-form';
 import UserService from '../../service/UserService';
 import './MyCart.scss'
+import { useNavigate } from 'react-router';
 
 const userService = new UserService();
 
 function MyCart() {
+    const navigate = useNavigate();
     const cartItems = useSelector(state => state.cartItems);
     const [showPlaceOrder, setShowPlaceOrder] = useState(true);
     const [showContinue, setShowContinue] = useState(true);
@@ -123,6 +125,7 @@ function MyCart() {
         userService.placeOrder("/add/order/", payload)
             .then((res) => {
                 console.log("Order Placed!");
+                navigate("/cart/order-placed");
             })
             .catch(error => {
                 console.error('Error encountered while Placing Order!', error);
