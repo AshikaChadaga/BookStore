@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -15,6 +15,10 @@ import Badge from '@mui/material/Badge';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import Popover from "@mui/material/Popover";
+import Button from "@mui/material/Button";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import './Header.scss'
 
 
 const theme = createTheme({
@@ -67,14 +71,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export function Header(props) {
+
   let navigate = useNavigate();
   const cartItems = useSelector(state => state.cartItems);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="fixed" style={{ backgroundColor: "#A03037", overflowX: "hidden"}}>
+        <AppBar position="fixed" style={{ backgroundColor: "#A03037", overflowX: "hidden" }}>
           <Toolbar>
-            <img onClick={() => navigate("/dashboard")} style={{ marginLeft: "10%", marginRight: "3px", cursor: "pointer" }} src={book} alt="book image" />
+            <img onClick={() => navigate("/dashboard")} style={{ marginLeft: "10%", marginRight: "3px", cursor: "pointer" }} src={book} alt="book" />
             <Typography
               onClick={() => navigate("/dashboard")}
               className="bookstore"
@@ -98,12 +115,34 @@ export function Header(props) {
 
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ marginRight: "1%" }}>
-              <IconButton >
+              <IconButton onClick={handleClick}>
                 <PersonOutlineOutlinedIcon style={{ color: "#fff" }} />
               </IconButton>
               <Typography>
                 {localStorage.getItem("fullName")}
               </Typography>
+              <Popover
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+              >
+                <div className="pop-items">
+                  <p className="title">Hello, Ashika</p>
+                  <p className="wishlist">
+                    <FavoriteBorderOutlinedIcon onClick={() => navigate("/dashboard/wishlist")} style={{color:"lightgrey", width:"20"}} size="small" />
+                    <span onClick={() => navigate("/dashboard/wishlist")} className="text">My Wishlist</span>
+                  </p>
+                  <Button style={{marginBottom:"10px"}} variant="outlined">Logout</Button>
+                </div>
+              </Popover>
             </Box>
 
             <Box sx={{ marginRight: "15%" }}>
