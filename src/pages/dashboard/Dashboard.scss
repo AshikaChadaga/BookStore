@@ -3,6 +3,16 @@
     grid-template-columns: repeat($numColumns, 1fr);
 }
 
+.preloader{
+    background-color: #8F2B2F;
+    min-height: 100vh;
+    z-index: 2000;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .main-content {
     overflow-x: hidden;
     padding-left: 11vw;
