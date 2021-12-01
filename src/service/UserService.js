@@ -6,7 +6,7 @@ let config = {
         'x-access-token': localStorage.getItem("id"),
     }
 };
-let baseURL = "https://new-bookstore-backend.herokuapp.com/bookstore_user";
+let baseURL = "https://bookstore.incubation.bridgelabz.com/bookstore_user";
 
 
 class UserService {
