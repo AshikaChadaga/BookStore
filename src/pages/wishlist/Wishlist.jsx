@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import './Wishlist.scss'
@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from "@mui/material/Button";
 import IconButton from '@mui/material/IconButton';
 import UserService from '../../service/UserService';
+import loader from '../../assets/dashboard/loader.gif';
 
 const userService = new UserService();
 
@@ -16,14 +17,18 @@ function Wishlist() {
 
     const dispatch = useDispatch();
     const wishlistItems = useSelector(state => state.wishlistItems);
+    const [loading, setLoading] = useState(false);
 
     async function getWishlistBooks() {
         dispatch(getWishlistItems());
+        setTimeout(() => {
+            setLoading(false);
+        }, 1000);
     }
 
     async function getCartBooks() {
         dispatch(getCartItems());
-      }
+    }
 
     const handleRemove = (bookId) => {
         userService.deleteWishlistItem(`/remove_wishlist_item/${bookId}`)
@@ -51,6 +56,7 @@ function Wishlist() {
     }
 
     React.useEffect(() => {
+        setLoading(true);
         getCartBooks();
         getWishlistBooks();
     }, [])
@@ -59,7 +65,7 @@ function Wishlist() {
         return (
             <div className="wishlist-items">
 
-                {   wishlistItems.wishlistItems.length === 0 ? <div className="empty"><h3>The Wishlist is Empty</h3></div> : 
+                {wishlistItems.wishlistItems.length === 0 ? <div className="empty"><h3>The Wishlist is Empty</h3></div> :
                     wishlistItems.wishlistItems.map((product) => (
 
                         <div key={product.product_id._id} className="book">
@@ -91,16 +97,28 @@ function Wishlist() {
 
     return (
         <div>
-            <Header />
-            <div className="main" id="main">
-                <div className="wishlist-title">
-                    <p className="mywishlist">My Wishlist ({wishlistItems.wishlistItems.length})</p>
-                </div>
+            {
+                loading ?
+                    <div className="preloader" id="preloader">
+                        <img width="300" src={loader} alt="Loading ..." />
+                    </div >
+                    :
 
-                {generateWishlist()}
+                    (
+                        <div>
+                            <Header />
+                            <div className="main" id="main">
+                                <div className="wishlist-title">
+                                    <p className="mywishlist">My Wishlist ({wishlistItems.wishlistItems.length})</p>
+                                </div>
 
-            </div>
-            <Footer />
+                                {generateWishlist()}
+
+                            </div>
+                            <Footer />
+                        </div>
+                    )
+            }
         </div>
     )
 }
