@@ -14,6 +14,12 @@ import Auth from '../../components/Authentication/Authentication'
 import './Login.scss'
 import UserService from '../../service/UserService';
 import { useNavigate } from 'react-router';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const userService = new UserService();
 
@@ -22,6 +28,17 @@ function Login() {
     let navigate = useNavigate();
     //password visibility
     const [passwordVisibility, setPasswordVisibility] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [messageColor, setMessageColor] = useState("");
+
+    const handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+        setOpen(false);
+    };
+
     const handlePasswordToggle = () => {
         setPasswordVisibility(!passwordVisibility)
     }
@@ -40,15 +57,23 @@ function Login() {
         userService.login("/login", data)
             .then((response) => {
                 console.log("User Logged in Successfully!!");
+                setAlertMessage("Logged in Sucessfully !");
+                setMessageColor("success");
+                setOpen(true);
                 localStorage.setItem("id", response.data.result.accessToken);
                 console.log("Access Token: ", localStorage.getItem("id"));
-                Auth.login(() => {
-                    navigate("/dashboard");
-                })
-                
+                setTimeout(() => {
+                    Auth.login(() => {
+                        navigate("/dashboard");
+                    })
+                }, 2000)
+
             })
             .catch((error) => {
                 console.log(error);
+                setAlertMessage("Login was Unsucessfull !");
+                setMessageColor("error");
+                setOpen(true);
             })
     }
 
@@ -62,7 +87,7 @@ function Login() {
                     defaultValue=""
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <TextField size="small" fullWidth id="outlined-basic" label="Email Id" variant="outlined"
-                            style={{ fontSize: "1px" }} 
+                            style={{ fontSize: "1px" }}
                             value={value}
                             onChange={onChange}
                             error={!!error}
@@ -113,6 +138,16 @@ function Login() {
                 <Button type="submit" fullWidth variant="contained" style={{ textTransform: "none", background: "#A03037 0% 0% no-repeat padding-box", opacity: 1 }}>
                     Login
                 </Button>
+                <Snackbar
+                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                    open={open}
+                    autoHideDuration={2000}
+                    onClose={handleClose}
+                >
+                    <Alert onClose={handleClose} severity={messageColor} sx={{ width: "100%" }}>
+                        {alertMessage}
+                    </Alert>
+                </Snackbar>
 
                 <Root>
                     <Divider style={{ marginTop: "1.5vw", marginBottom: "1.5vw" }}>OR</Divider>
