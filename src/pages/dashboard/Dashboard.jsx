@@ -22,6 +22,7 @@ import StarIcon from "@mui/icons-material/Star";
 import { green } from "@mui/material/colors";
 import bookImage from "../../assets/dashboard/Image 11.png";
 import Button from "@mui/material/Button";
+import loader from '../../assets/dashboard/loader.gif';
 
 
 const userService = new UserService();
@@ -54,6 +55,7 @@ function Dashboard() {
   const cartItems = useSelector(state => state.cartItems);
   const wishlistItems = useSelector(state => state.wishlistItems);
   const [searchWord, setSearchWord] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // console.log("Cart Items ", cartItems);
 
@@ -109,9 +111,15 @@ function Dashboard() {
         // console.log(res.data.result);
         setBooks(res.data.result);
         console.log("Books Displayed!");
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       })
       .catch(error => {
         console.error('Error encountered while Displaying Books!', error);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       });
   }
 
@@ -248,6 +256,7 @@ function Dashboard() {
         }
       </div>
     )
+
   }
 
   useEffect(() => {
@@ -256,6 +265,7 @@ function Dashboard() {
   }, [])
 
   useEffect(() => {
+    setLoading(true);
     displayBook();
   }, [cartItems, wishlistItems]);
 
@@ -264,55 +274,66 @@ function Dashboard() {
 
   return (
     <div>
-      <Header setSearchWord={setSearchWord} />
-      <div className="main-content">
-        <div className="title">
-          <div className="left-content">
-            <span className="book">Books</span>
-            <span className="items">({books.length} items)</span>
-          </div>
-          <div className="sort-options">
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <Select
-                value={selection}
-                onChange={handleChange}
-                displayEmpty
-                size="small"
-              >
-                <MenuItem style={{ display: "none" }} disabled value="">
-                  Sort by relevance
-                </MenuItem>
-                <MenuItem onClick={sortLowToHigh} style={{ fontSize: "15px" }} value={1}>Price: Low to High</MenuItem>
-                <MenuItem onClick={sortHighToLow} style={{ fontSize: "15px" }} value={2}>Price: High to Low</MenuItem>
-                <MenuItem onClick={sortAtoZ} style={{ fontSize: "15px" }} value={3}>Sort: A - Z</MenuItem>
-                <MenuItem onClick={sortZtoA} style={{ fontSize: "15px" }} value={4}>Sort: Z - A</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-        </div>
 
-        <div>
-          {searchWord.length === 0 ? displayBooks(currentBooks) : displayBooks(currentBooks.filter(book => (book.bookName.toLowerCase().includes(searchWord) || book.author.toLowerCase().includes(searchWord))))}
+      {loading ?
+        <div className="preloader" id="preloader">
+          <img width="300" src={loader} alt="Loading ..." />
         </div>
-      </div>
-      <ThemeProvider theme={theme}>
-        <Box sx={{ display: 'flex', justifyContent: "center", margin: "25px" }} >
-          <Pagination
-            onChange={handlePageChange}
-            count={Math.ceil(books.length / booksPerPage)}
-            color="myColor"
-            page={currentPage}
-            shape="rounded"
-            renderItem={(item) => (
-              <PaginationItem
-                components={{ previous: left, next: right }}
-                {...item}
-              />
-            )}
-          />
-        </Box>
-      </ThemeProvider>
-      <Footer />
+        :
+
+        (
+          <div>
+            <Header setSearchWord={setSearchWord} />
+            <div className="main-content">
+              <div className="title">
+                <div className="left-content">
+                  <span className="book">Books</span>
+                  <span className="items">({books.length} items)</span>
+                </div>
+                <div className="sort-options">
+                  <FormControl sx={{ m: 1, minWidth: 120 }}>
+                    <Select
+                      value={selection}
+                      onChange={handleChange}
+                      displayEmpty
+                      size="small"
+                    >
+                      <MenuItem style={{ display: "none" }} disabled value="">
+                        Sort by relevance
+                      </MenuItem>
+                      <MenuItem onClick={sortLowToHigh} style={{ fontSize: "15px" }} value={1}>Price: Low to High</MenuItem>
+                      <MenuItem onClick={sortHighToLow} style={{ fontSize: "15px" }} value={2}>Price: High to Low</MenuItem>
+                      <MenuItem onClick={sortAtoZ} style={{ fontSize: "15px" }} value={3}>Sort: A - Z</MenuItem>
+                      <MenuItem onClick={sortZtoA} style={{ fontSize: "15px" }} value={4}>Sort: Z - A</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+
+              <div>
+                {searchWord.length === 0 ? displayBooks(currentBooks) : displayBooks(currentBooks.filter(book => (book.bookName.toLowerCase().includes(searchWord) || book.author.toLowerCase().includes(searchWord))))}
+              </div>
+            </div>
+            <ThemeProvider theme={theme}>
+              <Box sx={{ display: 'flex', justifyContent: "center", margin: "25px" }} >
+                <Pagination
+                  onChange={handlePageChange}
+                  count={Math.ceil(books.length / booksPerPage)}
+                  color="myColor"
+                  page={currentPage}
+                  shape="rounded"
+                  renderItem={(item) => (
+                    <PaginationItem
+                      components={{ previous: left, next: right }}
+                      {...item}
+                    />
+                  )}
+                />
+              </Box>
+            </ThemeProvider>
+            <Footer />
+          </div>)
+      }
     </div>
   )
 }
