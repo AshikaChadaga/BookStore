@@ -1,9 +1,9 @@
-.mainContent {
+.main {
     min-height: 91.8vh;
     padding-left: 11vw;
     padding-right: 16vw;
     margin-bottom: 60px;
-    .title {
+    .wishlist-title {
         padding: 1vw;
         text-align: left;
         margin-top: 150px;
@@ -23,6 +23,10 @@
         color: black;
         min-width: 50%;
         background-color: "red";
+        .empty{
+            text-align: center;
+            margin-top: 100px;
+        }
         .book {
             padding: 2vw;
             background: #ffffff 0% 0% no-repeat padding-box;
@@ -56,11 +60,11 @@
 }
 
 @media only screen and (max-width: 900px) {
-    .mainContent {
+    .main {
         min-height: 76.2vh;
         padding-left: 5vw;
         padding-right: 5vw;
-        .title{
+        .wishlist-title{
             margin-top: 100px;
         }
         .book {
@@ -74,7 +78,7 @@
 }
 
 @media only screen and (max-width: 500px) {
-    .mainContent {
+    .main {
         .wishlist-items {
             .book {
                 display: grid;
