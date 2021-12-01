@@ -16,7 +16,6 @@ function Wishlist() {
 
     const dispatch = useDispatch();
     const wishlistItems = useSelector(state => state.wishlistItems);
-    // console.log(wishlistItems);
 
     async function getWishlistBooks() {
         dispatch(getWishlistItems());
@@ -60,7 +59,7 @@ function Wishlist() {
         return (
             <div className="wishlist-items">
 
-                {
+                {   wishlistItems.wishlistItems.length === 0 ? <div className="empty"><h3>The Wishlist is Empty</h3></div> : 
                     wishlistItems.wishlistItems.map((product) => (
 
                         <div key={product.product_id._id} className="book">
@@ -93,8 +92,8 @@ function Wishlist() {
     return (
         <div>
             <Header />
-            <div className="mainContent">
-                <div className="title">
+            <div className="main" id="main">
+                <div className="wishlist-title">
                     <p className="mywishlist">My Wishlist ({wishlistItems.wishlistItems.length})</p>
                 </div>
 
