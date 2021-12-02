@@ -9,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from "@mui/material/Button";
 import IconButton from '@mui/material/IconButton';
 import UserService from '../../service/UserService';
-import loader from '../../assets/dashboard/loader.gif';
+import loader from '../../assets/dashboard/301.gif';
 
 const userService = new UserService();
 
@@ -23,7 +23,7 @@ function Wishlist() {
         dispatch(getWishlistItems());
         setTimeout(() => {
             setLoading(false);
-        }, 1000);
+        }, 2000);
     }
 
     async function getCartBooks() {
@@ -98,27 +98,26 @@ function Wishlist() {
     return (
         <div>
             {
-                loading ?
-                    <div className="preloader" id="preloader">
-                        <img width="300" src={loader} alt="Loading ..." />
-                    </div >
-                    :
-
-                    (
-                        <div>
-                            <Header />
-                            <div className="main" id="main">
-                                <div className="wishlist-title">
-                                    <p className="mywishlist">My Wishlist ({wishlistItems.wishlistItems.length})</p>
-                                </div>
-
-                                {generateWishlist()}
-
-                            </div>
-                            <Footer />
-                        </div>
-                    )
+                loading &&
+                <div className="preloader" id="preloader">
+                    <img src={loader} alt="Loading ..." />
+                </div >
             }
+
+            <div>
+                <Header />
+                <div className="main" id="main">
+                    <div className="wishlist-title">
+                        <p className="mywishlist">My Wishlist ({wishlistItems.wishlistItems.length})</p>
+                    </div>
+
+                    {generateWishlist()}
+
+                </div>
+                <Footer />
+            </div>
+
+
         </div>
     )
 }
