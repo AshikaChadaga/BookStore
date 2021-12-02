@@ -12,6 +12,7 @@ import { useForm, Controller } from 'react-hook-form';
 import UserService from '../../service/UserService';
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { Navigate, useNavigate } from 'react-router';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -20,6 +21,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const userService = new UserService();
 function SignUp() {
     //password visibility
+    const navigate = useNavigate();
     const [passwordVisibility, setPasswordVisibility] = useState(false);
     const [open, setOpen] = useState(false);
     const [alertMessage, setAlertMessage ] = useState("");
@@ -40,11 +42,12 @@ function SignUp() {
         console.log(data);
         userService.registration("/registration", data)
             .then((res) => {
-                console.log("User Registered Successfully!!");
-                localStorage.setItem("fullName", res.data.result.fullName);
                 setAlertMessage("Registered Sucessfully !");
                 setMessageColor("success");
                 setOpen(true);
+                console.log("User Registered Successfully!!");
+                localStorage.setItem("fullName", res.data.result.fullName);
+                
             })
             .catch((error) => {
                 console.log(error);
