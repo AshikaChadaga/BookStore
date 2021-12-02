@@ -1,7 +1,7 @@
 .myCart {
     padding-left: 11vw;
     padding-right: 11vw;
-    min-height: 85vh;
+    min-height: 80.9vh;
     .first-section {
         margin-top: 100px;
         max-width: 60%;
@@ -199,7 +199,7 @@
                 .textfield {
                     display: flex;
                     flex-direction: column;
-                    // max-width: 55%;
+                    gap: 0vw;
                 }
             }
         }
@@ -211,25 +211,28 @@
 
 @media only screen and (max-width: 500px) {
     .myCart {
-        min-height: 73vh;
+        min-height: 74.5vh;
         padding-left: 2vw;
         padding-right: 2vw;
         .first-section {
             max-width: 100%;
-            margin-top: 100px;
+            margin-top: 70px;
+            border: none;
         }
         .second-section {
             max-width: 100%;
+            border: none;
             .customer-details {
                 .textfield {
                     display: flex;
                     flex-direction: column;
-                    max-width: 90%;
+                    max-width: 100%;
                 }
             }
         }
         .third-section {
             max-width: 100%;
+            border: none;
         }
     }
 }
