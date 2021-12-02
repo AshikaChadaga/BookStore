@@ -242,7 +242,7 @@ function Dashboard() {
                   anchorEl={anchorEl}
                   placement="right-start"
                   transition
-                  style={{ width: "20%", }}
+                  style={{ width: "30%", }}
                 >
                   {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={350}>
