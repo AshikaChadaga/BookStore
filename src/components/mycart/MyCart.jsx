@@ -16,7 +16,7 @@ import Footer from '../../components/footer/Footer';
 import UserService from '../../service/UserService';
 import './MyCart.scss'
 import { useNavigate } from 'react-router';
-import loader from '../../assets/dashboard/loader.gif';
+import loader from '../../assets/dashboard/301.gif';
 
 const userService = new UserService();
 
@@ -61,7 +61,7 @@ function MyCart() {
         dispatch(getCartItems());
         setTimeout(() => {
             setLoading(false);
-        }, 1000);
+        }, 2000);
 
     }
 
@@ -357,60 +357,54 @@ function MyCart() {
 
     return (
         <div>
-
             {
-                loading ?
-                    <div className="preloader" id="preloader">
-                        <img width="300" src={loader} alt="Loading ..." />
-                    </div >
-                    :
-
-                    (
-                        <div>
-
-
-                            <Header />
-                            <div className="myCart">
-                                <div className="first-section">
-                                    <div >
-                                        <h3 className="title">My Cart ({cartItems.cartItems.length})</h3>
-                                    </div>
-
-                                    {generateCart()}
-                                    {showPlaceOrder && <div className="place-order" >
-                                        <Button variant="contained" checked={checked} disabled={cartItems.cartItems.length === 0 ? true : false}
-                                            onClick={handleChange}>place order</Button>
-                                    </div>}
-                                </div>
-
-                                <div className="second-section">
-                                    <Collapse in={checked} collapsedSize={40}>
-                                        <form onSubmit={handleSubmit(onSubmit)}>
-                                            {secondSection}
-                                            {showContinue && <div className="continue" >
-                                                <Button type="submit" variant="contained" checked={checkedContinue}
-                                                >Continue</Button>
-                                            </div>}
-                                        </form>
-                                    </Collapse>
-                                </div>
-
-                                <div className="third-section">
-                                    <Collapse in={checkedContinue} collapsedSize={40}>
-                                        {thirdSection}
-                                        <div className="checkout" >
-                                            <Button onClick={() => { handleCheckout() }} variant="contained" >Checkout</Button>
-                                        </div>
-                                    </Collapse>
-
-                                </div>
-
-                            </div>
-
-                            <Footer />
-                        </div>
-                    )
+                loading &&
+                <div className="preloader" id="preloader">
+                    <img src={loader} alt="Loading ..." />
+                </div >
             }
+            <div>
+
+
+                <Header />
+                <div className="myCart">
+                    <div className="first-section">
+                        <div >
+                            <h3 className="title">My Cart ({cartItems.cartItems.length})</h3>
+                        </div>
+
+                        {generateCart()}
+                        {showPlaceOrder && <div className="place-order" >
+                            <Button variant="contained" checked={checked} disabled={cartItems.cartItems.length === 0 ? true : false}
+                                onClick={handleChange} style={{ marginTop: "20px" }}>place order</Button>
+                        </div>}
+                    </div>
+
+                    <div className="second-section">
+                        <Collapse in={checked} collapsedSize={40}>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                {secondSection}
+                                {showContinue && <div className="continue" >
+                                    <Button type="submit" variant="contained" checked={checkedContinue} style={{ marginTop: "20px" }} >Continue</Button>
+                                </div>}
+                            </form>
+                        </Collapse>
+                    </div>
+
+                    <div className="third-section">
+                        <Collapse in={checkedContinue} collapsedSize={40}>
+                            {thirdSection}
+                            <div className="checkout" >
+                                <Button onClick={() => { handleCheckout() }} variant="contained" style={{marginTop:"20px"}}>Checkout</Button>
+                            </div>
+                        </Collapse>
+
+                    </div>
+
+                </div>
+
+                <Footer />
+            </div>
         </div>
     )
 }
