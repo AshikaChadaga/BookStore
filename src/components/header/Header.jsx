@@ -93,7 +93,7 @@ export function Header(props) {
   const open = Boolean(anchorEl);
 
   return (
-    <div>
+    <div className="header">
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="fixed" style={{ backgroundColor: "#A03037", overflowX: "hidden" }}>
           <Toolbar>
@@ -125,7 +125,7 @@ export function Header(props) {
                 <PersonOutlineOutlinedIcon style={{ color: "#fff" }} />
               </IconButton>
               <Typography style={{cursor:"pointer"}} onClick={handleClick}>
-                {localStorage.getItem("fullName")}
+                <span className="header-name">{localStorage.getItem("fullName")}</span>
               </Typography>
               <Popover
                 open={open}
@@ -151,7 +151,7 @@ export function Header(props) {
               </Popover>
             </Box>
 
-            <Box sx={{ marginRight: "15%" }}>
+            <Box sx={{ marginRight: "15%", display:"flex", flexDirection:"column" }}>
               <IconButton onClick={() => navigate('/cart', { replace: true })}>
                 <ThemeProvider theme={theme}>
                   <Badge badgeContent={cartItems.cartItems.length} color="myColor">
@@ -159,9 +159,9 @@ export function Header(props) {
                   </Badge>
                 </ThemeProvider>
               </IconButton>
-              <Typography>
+              <span className="header-name">
                 Cart
-              </Typography>
+              </span>
             </Box>
 
           </Toolbar>
