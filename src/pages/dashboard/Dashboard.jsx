@@ -177,14 +177,14 @@ function Dashboard() {
     else {
       return (<div className="button">
         <Button
-          sx={{ display: { font: "normal normal normal 12px/26px Roboto" } }}
+          sx={{ display: { font: "normal normal normal 12px/26px Roboto", fontWeight:"bold" } }}
           onClick={() => { addBookToBag(book) }}
           style={{ backgroundColor: "#A03037", marginLeft: "30px" }}
           variant="contained">
           ADD TO BAG
         </Button>
         <Button
-          sx={{ display: { font: "normal normal normal 12px/26px Roboto" } }}
+          sx={{ display: { font: "normal normal normal 12px/26px Roboto", fontWeight:"bold" } }}
           onClick={() => { addBookToWishlist(book) }}
           variant="outlined"
           style={{ color: "black", borderColor: "#878787", marginRight: "30px" }}
