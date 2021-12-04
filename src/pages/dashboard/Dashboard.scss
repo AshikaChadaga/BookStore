@@ -55,6 +55,9 @@
             .book-image {
                 min-width: 50%;
             }
+            .book-detail{
+                color: #707070;
+            }
         }
         .button {
             @include grid(2);
