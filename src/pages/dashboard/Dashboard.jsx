@@ -249,7 +249,7 @@ function Dashboard() {
                       <Paper>
                         <Typography sx={{ p: 2 }}>
                           <h4>Book Detail</h4>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                          <p className="book-detail">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                           enim ad minim veniam, quis nostrud exercitation ullamco laboris
                           nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
@@ -263,7 +263,7 @@ function Dashboard() {
                           faucibus a. Leo vel fringilla est ullamcorper eget nulla. Mauris
                           a diam maecenas sed. Odio eu feugiat pretium nibh. Eu nisl nunc
                           mi ipsum faucibus vitae aliquet nec. Odio ut sem nulla pharetra
-                          diam sit amet nisl.
+                          diam sit amet nisl.</p>
                         </Typography>
                       </Paper>
                     </Fade>
